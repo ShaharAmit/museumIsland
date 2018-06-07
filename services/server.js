@@ -1,7 +1,8 @@
 const express = require('express'),
     app = express(),
-    ideaCtl = require('./controllers/ideas.ctl'),
-    port = process.env.PORT || 3000;;
+    galleriesCtl = require('./controllers/galleries.ctl'),
+
+    port = process.env.PORT || 3000;
 app.set('port', port);
 app.use('/', express.static('./public')); //for API
 app.use(
@@ -13,8 +14,10 @@ app.use(
         next();
     });
 /*** All routes ***/
-app.get('/final-ideas/getAllIdeas', ideaCtl.getData);
-app.get('/final-ideas/saveNewIdea', ideaCtl.saveData);
+app.get('/', galleriesCtl.galleriesByDate);
+app.get('/test',(req,res) => {
+    galleriesCtl.galleryByDG(req,res,'genre');
+})
 app.listen(port,
     () => {
         console.log(`listening on port ${port}`);

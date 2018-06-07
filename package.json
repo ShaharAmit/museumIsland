@@ -1,12 +1,12 @@
 {
-  "name": "class10",
+  "name": "museums_island",
   "version": "1.0.0",
-  "description": "",
+  "description": "better place to see art",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Shahar A. & Nikita B.",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
