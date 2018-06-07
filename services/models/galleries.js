@@ -5,7 +5,7 @@ const mongoose = require('mongoose'),
         artist: String,
         title: String,
         genre: String,
-        timestamp: String,
+        timestamp: Date,
         pictures: [String]
       }, {collection: 'Galleries'});
 

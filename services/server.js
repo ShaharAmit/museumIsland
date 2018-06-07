@@ -17,7 +17,7 @@ app.use(
 app.get('/', galleriesCtl.galleriesByDate);
 app.get('/test',(req,res) => {
     galleriesCtl.galleryByDG(req,res,'genre');
-})
+});
 app.listen(port,
     () => {
         console.log(`listening on port ${port}`);
