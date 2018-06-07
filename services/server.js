@@ -1,6 +1,8 @@
 const express = require('express'),
     app = express(),
     galleriesCtl = require('./controllers/galleries.ctl'),
+    articlesCtl = require('./controllers/articles.ctl'),
+
 
     port = process.env.PORT || 3000;
 app.set('port', port);
@@ -15,9 +17,11 @@ app.use(
     });
 /*** All routes ***/
 app.get('/', galleriesCtl.galleriesByDate);
-app.get('/test',(req,res) => {
-    galleriesCtl.galleryByDG(req,res,'genre');
-});
+
+//get the latest articles by genre
+app.get('/articles',(req,res) => {
+    articlesCtl.areticleByDG(req,res,'genre');
+})
 app.listen(port,
     () => {
         console.log(`listening on port ${port}`);

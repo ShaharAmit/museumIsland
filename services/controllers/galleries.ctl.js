@@ -26,27 +26,6 @@ function galleriesByDate(req, res) {
     .limit(3);
 }
 
-//get one gallery by date and from each genre
-function galleryByDG(req, res, global) {
-    globlasCtl.getGlobals(global).then(genres => {
-        fields = genres.fields
-        console.log('fields',fields);
-        fields.forEach(genre => {
-            console.log('genere',genre);
-            Galleries.find({
-                genre: genre
-            },(err, docs) => {
-                if (err) console.log(`query error:${err}`);
-                console.log(docs);
-                return;
-            }).sort({'timestamp': 'descending'})
-            .limit(2);
-        });
-    res.json({'test': 'test'});
-    });
-}
-
 module.exports = {
-    galleryByDG,
     galleriesByDate
 };
