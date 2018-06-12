@@ -24,6 +24,10 @@ app.get('/:artist', (req,res) => {
     galleriesCtl.galleriesByArtist(req,res,req.params.artist);
 });
 
+app.get('/:pictures', (req,res) => {
+    galleriesCtl.picturesByGallery(req,res,req.pictures);
+});
+
 //get the latest articles by genre
 app.get('/articles',(req,res) => {
     articlesCtl.areticleByDG(req,res,'genre');
