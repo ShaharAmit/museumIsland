@@ -12,7 +12,7 @@ app.use(
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers",
             "Origin, X-Requested-With, Content-Type,Accept");
-        //res.set("Content-Type", "application/json");
+        res.set("Content-Type", "application/json");
         next();
     });
 /*** All routes ***/
@@ -24,8 +24,8 @@ app.get('/:artist', (req,res) => {
     galleriesCtl.galleriesByArtist(req,res,req.params.artist);
 });
 
-app.get('/:pictures', (req,res) => {
-    galleriesCtl.picturesByGallery(req,res,req.pictures);
+app.get('/pictures/:gallery', (req,res) => {
+    galleriesCtl.picturesByGallery(req,res,req.params.gallery);
 });
 
 //get the latest articles by genre

@@ -12,13 +12,11 @@ exports.getData = (req, res) => {
         });
 };
 
-
 function saveData(req, res) {
 
 }
 
-function galleriesByDate(req, res) {
-    Galleries.find({}, 'title artist', (err, docs) => {
+
         function galleriesByDate(req, res) {
             Galleries.find({}, (err, docs) => {
                 if (err) console.log(`query error:${err}`);
@@ -28,8 +26,7 @@ function galleriesByDate(req, res) {
             }).sort({'timestamp': 'descending'})
                 .limit(3);
         }
-    });
-}
+
 
         function galleriesByArtist(req, res, artist) {
             Galleries.find({artist: artist}, (err, docs) => {
@@ -40,7 +37,7 @@ function galleriesByDate(req, res) {
         }
 
         function picturesByGallery(req, res, pictures) {
-            Galleries.find({pictures: pictures}, (err, docs) => {
+            Galleries.find({gallery_name: pictures},"pictures -_id", (err, docs) => {
                 if (err) console.log(`query error:${err}`);
                 console.log(docs);
                 res.json(docs);
