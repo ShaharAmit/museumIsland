@@ -10,7 +10,8 @@ exports.getData = (req, res) => {
             res.json(docs);
             return;
         });
-}
+};
+
 
 function saveData(req, res) {
 
@@ -18,6 +19,8 @@ function saveData(req, res) {
 
 function galleriesByDate(req, res) {
     Galleries.find({},'title artist',(err, docs) => {
+function galleriesByDate (req, res) {
+    Galleries.find({},(err, docs) => {
         if (err) console.log(`query error:${err}`);
             console.log(docs);
             res.json(docs);
@@ -26,6 +29,33 @@ function galleriesByDate(req, res) {
     .limit(3);
 }
 
+function galleriesByArtist(req, res, artist) {
+    Galleries.find({artist: artist},(err, docs) => {
+        if (err) console.log(`query error:${err}`);
+        console.log(docs);
+        res.json(docs);
+   })
+}
+
+function picturesByGallery(req, res, pictures) {
+    Galleries.find({pictures: pictures},(err, docs) => {
+        if (err) console.log(`query error:${err}`);
+        console.log(docs);
+        res.json(docs);
+    })
+}
+
+
 module.exports = {
-    galleriesByDate
+    galleriesByArtist,
+    galleriesByDate,
+    picturesByGallery
 };
+
+
+
+
+
+
+
+
