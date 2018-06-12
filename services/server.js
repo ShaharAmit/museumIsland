@@ -16,12 +16,21 @@ app.use(
         next();
     });
 /*** All routes ***/
-app.get('/', galleriesCtl.galleriesByDate);
+
+app.get('/', (req,res) => {
+    galleriesCtl.galleriesByDate(req,res);
+});
+app.get('/:artist', (req,res) => {
+    galleriesCtl.galleriesByArtist(req,res,req.params.artist);
+});
 
 //get the latest articles by genre
 app.get('/articles',(req,res) => {
     articlesCtl.areticleByDG(req,res,'genre');
-})
+});
+
+
+
 app.listen(port,
     () => {
         console.log(`listening on port ${port}`);
