@@ -17,7 +17,7 @@ function saveData(req, res) {
 }
 
 function galleriesByDate(req, res) {
-    Galleries.find({},(err, docs) => {
+    Galleries.find({},'title artist',(err, docs) => {
         if (err) console.log(`query error:${err}`);
             console.log(docs);
             res.json(docs);
