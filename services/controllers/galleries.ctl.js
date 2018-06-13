@@ -1,61 +1,52 @@
 const mongoose = require('mongoose'),
-    Galleries = require('../models/galleries'),
-    globlasCtl = require('./globals.ctl');
+    Galleries = require('../models/galleries');
 
-exports.getData = (req, res) => {
-    Galleries.find({},
-        (err, docs) => {
+function getData(res) {
+    Galleries.find({},(err, docs) => {
+        if (err) console.log(`query error:${err}`);
+        console.log(docs);
+        res.json(docs);
+        return;
+    });
+}
+
+function galleriesByDate(res) {
+    Galleries.find({}, (err, docs) => {
             if (err) console.log(`query error:${err}`);
             console.log(docs);
             res.json(docs);
             return;
-        });
-};
-
-function saveData(req, res) {
-
+        }).sort({
+            'timestamp': 'descending'
+        })
+        .limit(3);
 }
 
 
-        function galleriesByDate(req, res) {
-            Galleries.find({}, (err, docs) => {
-                if (err) console.log(`query error:${err}`);
-                console.log(docs);
-                res.json(docs);
-                return;
-            }).sort({'timestamp': 'descending'})
-                .limit(3);
-        }
+function galleriesByArtist(res, artist) {
+    Galleries.find({
+        artist: artist
+    }, (err, docs) => {
+        if (err) console.log(`query error:${err}`);
+        console.log(docs);
+        res.json(docs);
+    })
+}
+
+function picturesByGallery(res, pictures) {
+    Galleries.findOne({
+        gallery_name: pictures
+    }, "pictures -_id", (err, doc) => {
+        if (err) console.log(`query error:${err}`);
+        const pictures = doc.pictures.slice(0, 3);
+        res.json({pictures: pictures});
+    })
+}
 
 
-        function galleriesByArtist(req, res, artist) {
-            Galleries.find({artist: artist}, (err, docs) => {
-                if (err) console.log(`query error:${err}`);
-                console.log(docs);
-                res.json(docs);
-            })
-        }
-
-        function picturesByGallery(req, res, pictures) {
-            Galleries.find({gallery_name: pictures},"pictures -_id", (err, docs) => {
-                if (err) console.log(`query error:${err}`);
-                console.log(docs);
-                res.json(docs);
-            })
-        }
-
-
-        module.exports = {
-            galleriesByArtist,
-            galleriesByDate,
-            picturesByGallery
-        };
-
-
-
-
-
-
-
-
-
+module.exports = {
+    galleriesByArtist,
+    galleriesByDate,
+    picturesByGallery,
+    getData
+};

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
     Artists = require('../models/artists');
 
-function artistByGallery(req, res, gallery) {
+function artistByGallery(res,gallery) {
     Artists.find({galleries: gallery}, (err, docs) => {
         if (err) console.log(`query error:${err}`);
         console.log(docs);

@@ -3,10 +3,11 @@ const express = require('express'),
     galleriesCtl = require('./controllers/galleries.ctl'),
     articlesCtl = require('./controllers/articles.ctl'),
     museumsCtl = require('./controllers/museums.ctl'),
-    artistsCtl = require('./controllers/artists.ctl');
-
+    artistsCtl = require('./controllers/artists.ctl'),
+    usersCtl = require('./controllers/users.ctl');
 
     port = process.env.PORT || 3000;
+
 app.set('port', port);
 app.use('/', express.static('./public')); //for API
 app.use(
@@ -20,30 +21,33 @@ app.use(
 /*** All routes ***/
 
 app.get('/', (req,res) => {
-    galleriesCtl.galleriesByDate(req,res);
+    const gallery = '12345',
+        userID = 'museum_island.darkboyd'
+    usersCtl.addMuseumToProfile(res,userID,gallery);
 });
 app.get('/:artist', (req,res) => {
-    galleriesCtl.galleriesByArtist(req,res,req.params.artist);
+    const artist = req.params.artist
+    galleriesCtl.galleriesByArtist(res,artist);
 });
 
 app.get('/pictures/:gallery', (req,res) => {
-    galleriesCtl.picturesByGallery(req,res,req.params.gallery);
-});
-
-//get the latest articles by genre
-app.get('/articles',(req,res) => {
-    articlesCtl.areticleByDG(req,res,'genre');
+    const gallery = req.params.gallery;
+    galleriesCtl.picturesByGallery(res,gallery);
 });
 
 //get museums by gallery
 app.get('/museum/:gallery', (req,res) => {
-    museumsCtl.museumsByGallery(req,res,req.params.gallery);
+    const gallery = req.params.gallery;
+    museumsCtl.museumsByGallery(res,gallery);
 });
 
 //get artists by gallery
 app.get('/artist/:gallery', (req,res) => {
-    artistsCtl.artistByGallery(req,res,req.params.gallery);
+    const gallery = req.params.gallery;
+    artistsCtl.artistByGallery(res,gallery);
 });
+
+
 
 
 app.listen(port,

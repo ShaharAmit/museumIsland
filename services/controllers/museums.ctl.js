@@ -1,8 +1,7 @@
 const mongoose = require('mongoose'),
-    Museums = require('../models/museums'),
-    globlasCtl = require('./globals.ctl');
+    Museums = require('../models/museums');
 
-function museumsByGallery(req, res, gallery) {
+function museumsByGallery(res,gallery) {
     Museums.find({galeries: gallery},(err, docs) => {
         if (err) console.log(`query error:${err}`);
         console.log(docs);
