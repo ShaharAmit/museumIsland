@@ -1,9 +1,8 @@
-const mongoose = require('mongoose'),
-    Articles = require('../models/articles'),
+    const Articles = require('../models/articles'),
     globlasCtl = require('./globals.ctl');
 
-function getData(res) {
-    Galleries.find({},(err, docs) => {
+function getArticleById(res, id) {
+    Articles.findById(id,(err, docs) => {
         if (err) console.log(`query error:${err}`);
         console.log(docs);
         res.json(docs);
@@ -36,5 +35,5 @@ function articlesByDG(res) {
 
 module.exports = {
     articlesByDG,
-    getData
+    getArticleById
 };

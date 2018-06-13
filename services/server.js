@@ -21,9 +21,8 @@ app.use(
 /*** All routes ***/
 
 app.get('/', (req,res) => {
-    const gallery = '12345',
-        userID = 'museum_island.darkboyd'
-    usersCtl.addMuseumToProfile(res,userID,gallery);
+    const gallery = '5b1919c7e7179a074bec2f6b';
+    articlesCtl.getArticleById(res,gallery);
 });
 app.get('/:artist', (req,res) => {
     const artist = req.params.artist
