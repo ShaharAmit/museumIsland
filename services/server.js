@@ -2,7 +2,8 @@ const express = require('express'),
     app = express(),
     galleriesCtl = require('./controllers/galleries.ctl'),
     articlesCtl = require('./controllers/articles.ctl'),
-    museumsCtl = require('./controllers/museums.ctl');
+    museumsCtl = require('./controllers/museums.ctl'),
+    artistsCtl = require('./controllers/artists.ctl');
 
 
     port = process.env.PORT || 3000;
@@ -34,9 +35,14 @@ app.get('/articles',(req,res) => {
     articlesCtl.areticleByDG(req,res,'genre');
 });
 
-//get museum by gallery
+//get museums by gallery
 app.get('/museum/:gallery', (req,res) => {
     museumsCtl.museumsByGallery(req,res,req.params.gallery);
+});
+
+//get artists by gallery
+app.get('/artist/:gallery', (req,res) => {
+    artistsCtl.artistByGallery(req,res,req.params.gallery);
 });
 
 
