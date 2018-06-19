@@ -54,18 +54,49 @@ app.get('/artist/:gallery', (req,res) => {
     artistsCtl.artistByGallery(res,gallery);
 });
 
+//follow museum
 app.post('/followMuseum', (req,res) => {
     var userID = req.body.userID;
     var museum = req.body.museum;
     usersCtl.addMuseumToFollowing(res,userID,museum);
 });
 
+//unfollow museum
 app.post('/unFollowMuseum', (req,res) => {
     var userID = req.body.userID;
     var museum = req.body.museum;
     usersCtl.removeMuseumFromFollowing(res,userID,museum);
 });
 
+//discount for museum
+app.post('/Discount', (req,res) => {
+    var userID = req.body.userID;
+    var museum = req.body.museum;
+    usersCtl.addMuseumToDiscounts(res,userID,museum);
+});
+
+//get article by article id
+app.post('/article', (req,res) => {
+    var id = req.body.id;
+    var userID = req.body.userID;
+    articlesCtl.getArticleById(res,id, userID);
+});
+
+//add gallery to paid galleries
+app.post('/Paid/Gallery', (req,res) => {
+    var userID = req.body.userID;
+    var gallery= req.body.gallery;
+    usersCtl.addGalleryToPaid(res,userID,gallery);
+});
+
+//add object to paid
+app.post('/Paid/Object', (req,res) => {
+    var userID = req.body.userID;
+    var object= req.body.object;
+    usersCtl.addObjectToPaid(res,userID,object);
+});
+
+//API - index.html file
 app.get('/', function(req, res){
     res.sendfile('index.html');
 });
