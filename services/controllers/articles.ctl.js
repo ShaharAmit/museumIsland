@@ -1,12 +1,13 @@
     const Articles = require('../models/articles'),
     globlasCtl = require('./globals.ctl');
-
-function getArticleById(res, id) {
+    usersCtl = require('./users.ctl')
+function getArticleById(res, id, userID) {
     Articles.findById(id,(err, docs) => {
         if (err) console.log(`query error:${err}`);
-        console.log(docs);
         res.json(docs);
-        return;
+        return docs;
+    }).then((doc) => {
+        usersCtl.updatePreferences(userID,'news',doc);
     });
 }
 

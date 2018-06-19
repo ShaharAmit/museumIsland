@@ -6,6 +6,7 @@ const mongoose = require('mongoose'),
         purchases: [String],
         paid_galleries: [String],
         discounts_museums: [String],
+        preferences: { }
     }, {collection: 'Users'});
 
 const Users = mongoose.model('Users', users);

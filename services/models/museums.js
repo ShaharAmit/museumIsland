@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
     museums = new mongoose.Schema({
         museum_name: String,
-        galeries: [String],
+        galleries: [String],
         articles: [String],
         "items_for_sale": [{
             name: String,

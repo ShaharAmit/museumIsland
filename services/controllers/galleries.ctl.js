@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
-    Galleries = require('../models/galleries');
+    Galleries = require('../models/galleries'),
+    Museums = require('./museums.ctl');
 
 function getData(res) {
     Galleries.find({},(err, docs) => {
@@ -43,10 +44,39 @@ function picturesByGallery(res, gallery) {
     })
 }
 
+function createGallery(res, museumName, museumID, galleryName, artist, genre, pictures, price, description) {
+    Museums.insertGallery(galleryName, museumID, museumName).then(() => {
+        const gallery = new Galleries({
+            museum: museumName,
+            gallery_name: galleryName,
+            artist: artist,
+            genre: genre,
+            timestamp: Date.now(),
+            pictures: pictures,
+            price: price,
+            description: description
+        })
+        return gallery.save(err => {
+            if(err) {
+                return err;
+            } else {
+                return true;
+            }
+        });
+    }).then(() => {
+        console.log('gallery created');
+        res.json({created: 'gallery created'})
+    }).catch(err => {
+        console.log(err);
+        res.json({created: 'could not create gallery this moment'});
+    });
+
+}
 
 module.exports = {
     galleriesByArtist,
     galleriesByDate,
     picturesByGallery,
-    getData
+    getData,
+    createGallery
 };

@@ -72,6 +72,33 @@ function addObjectToPaid(res,userID,object) {
         });
     }).catch(err => console.log(err));
 }
+
+function updatePreferences (userID,event,doc) {
+    const genre = doc.genre;
+    Users.findOne({_id: userID},'preferences -_id').then((doc) => {
+        return doc.preferences;
+    }).then(preferences => {    
+        let newPreferences = preferences;
+        if(!newPreferences) {
+            newPreferences={};
+        }
+        switch(event) {
+            case 'news': 
+                if(newPreferences[genre]) {
+                    newPreferences[genre] = newPreferences[genre] + 1;
+                } else {
+                    newPreferences[genre] = 1;
+                }
+            break;
+        }
+        console.log(newPreferences);
+        Users.update({_id: userID},{$set: {preferences: newPreferences}},(err, docs) => {
+            if (err) console.log(`query error:${err}`)
+            else console.log('success');
+        });
+    }).catch(err => console.log(err));
+    
+}
 //discounts_museums
 
 module.exports = {
@@ -80,4 +107,5 @@ module.exports = {
     addMuseumToFollowing,
     addGalleryToPaid,
     addObjectToPaid,
+    updatePreferences
 };
