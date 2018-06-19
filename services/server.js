@@ -6,9 +6,14 @@ const express = require('express'),
     artistsCtl = require('./controllers/artists.ctl'),
     usersCtl = require('./controllers/users.ctl'),
     testing = require('./controllers/testing.ctl');
+var bodyParser = require('body-parser');
 
     port = process.env.PORT || 3000;
 
+
+
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.set('port', port);
 app.use('/', express.static('./public')); //for API
 app.use(
@@ -22,13 +27,15 @@ app.use(
 /*** All routes ***/
 
 app.get('/', (req,res) => {
-    const gallery ='Power Plays'
+    const gallery ='Power Plays';
     museumsCtl.museumsByGallery(res,gallery);
 });
+
 app.get('/:artist', (req,res) => {
-    const artist = req.params.artist
+    const artist = req.params.artist;
     galleriesCtl.galleriesByArtist(res,artist);
 });
+
 
 app.get('/pictures/:gallery', (req,res) => {
     const gallery = req.params.gallery;
@@ -47,8 +54,21 @@ app.get('/artist/:gallery', (req,res) => {
     artistsCtl.artistByGallery(res,gallery);
 });
 
+app.post('/followMuseum', (req,res) => {
+    var userID = req.body.userID;
+    var museum = req.body.museum;
+    usersCtl.addMuseumToFollowing(res,userID,museum);
+});
 
+app.post('/unFollowMuseum', (req,res) => {
+    var userID = req.body.userID;
+    var museum = req.body.museum;
+    usersCtl.removeMuseumFromFollowing(res,userID,museum);
+});
 
+app.get('/', function(req, res){
+    res.sendfile('index.html');
+});
 
 app.listen(port,
     () => {
