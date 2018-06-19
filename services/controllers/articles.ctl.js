@@ -1,8 +1,9 @@
     const Articles = require('../models/articles'),
     globlasCtl = require('./globals.ctl');
     usersCtl = require('./users.ctl')
+
 function getArticleById(res, id, userID) {
-    Articles.findById(id,(err, docs) => {
+    Articles.findById(id,"-_id -pictures -timestamp",(err, docs) => {
         if (err) console.log(`query error:${err}`);
         res.json(docs);
         return docs;
@@ -16,7 +17,7 @@ function articlesByDG(res) {
     genre = 'genre';
     var promises = [];
     globlasCtl.getGlobals('genre').then(genres => {
-        fields = genres.fields
+        fields = genres.fields;
         console.log('fields',fields);
         fields.forEach(genre => {
             console.log('genere',genre);

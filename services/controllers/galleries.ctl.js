@@ -27,7 +27,7 @@ function galleriesByDate(res) {
 function galleriesByArtist(res, artist) {
     Galleries.find({
         artist: artist
-    }, (err, docs) => {
+    }, "-_id -pictures -timestamp", (err, docs) => {
         if (err) console.log(`query error:${err}`);
         console.log(docs);
         res.json(docs);
