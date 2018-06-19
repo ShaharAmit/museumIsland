@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
         museums: [String],
         galleries: [String],
         name:String,
-        bio: [String]
+        about: [String]
     }, {collection: 'Artists'});
 
 const Artists = mongoose.model('Artists', artists);

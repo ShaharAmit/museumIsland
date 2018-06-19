@@ -33,9 +33,9 @@ function galleriesByArtist(res, artist) {
     })
 }
 
-function picturesByGallery(res, pictures) {
+function picturesByGallery(res, gallery) {
     Galleries.findOne({
-        gallery_name: pictures
+        gallery_name: gallery
     }, "pictures -_id", (err, doc) => {
         if (err) console.log(`query error:${err}`);
         const pictures = doc.pictures.slice(0, 3);

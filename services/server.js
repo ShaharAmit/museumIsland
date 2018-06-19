@@ -4,7 +4,8 @@ const express = require('express'),
     articlesCtl = require('./controllers/articles.ctl'),
     museumsCtl = require('./controllers/museums.ctl'),
     artistsCtl = require('./controllers/artists.ctl'),
-    usersCtl = require('./controllers/users.ctl');
+    usersCtl = require('./controllers/users.ctl'),
+    testing = require('./controllers/testing.ctl');
 
     port = process.env.PORT || 3000;
 
@@ -21,8 +22,8 @@ app.use(
 /*** All routes ***/
 
 app.get('/', (req,res) => {
-    const gallery = '5b1919c7e7179a074bec2f6b';
-    articlesCtl.getArticleById(res,gallery);
+    const gallery ='Power Plays'
+    museumsCtl.museumsByGallery(res,gallery);
 });
 app.get('/:artist', (req,res) => {
     const artist = req.params.artist

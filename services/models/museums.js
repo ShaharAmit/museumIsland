@@ -3,7 +3,15 @@ const mongoose = require('mongoose'),
         museum_name: String,
         galeries: [String],
         articles: [String],
-    }, {collection: 'Museums'});
+        "items_for_sale": [{
+            name: String,
+            genre: String,
+            price: String,
+            description: String
+        }]
+    }, {
+        collection: 'Museums'
+    });
 
 const Museums = mongoose.model('Museums', museums);
 

@@ -3,10 +3,11 @@ const mongoose = require('mongoose'),
         museum: String,
         gallery_name: String,
         artist: String,
-        title: String,
         genre: String,
         timestamp: String,
-        pictures: [String]
+        pictures: [String],
+        price: String,
+        description: String
       }, {collection: 'Galleries'});
 
 const Galleries = mongoose.model('Galleries', galleries);

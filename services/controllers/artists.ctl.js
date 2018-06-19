@@ -12,3 +12,4 @@ function artistByGallery(res,gallery) {
 module.exports = {
     artistByGallery
 };
+ 
