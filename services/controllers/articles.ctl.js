@@ -17,11 +17,14 @@ function getArticleByNA(req, res) {
             console.log(`query error:${err}`)
             res.status(404).send({err: true})
         }   else {
-            res.status(200).send({err: false, docs: docs})
+            res.status(200).send({err: false, docs: doc})
         }
         return doc;
     }).then((document) => {
         usersCtl.updatePreferences(username,'news',document);
+    }).catch(err => {
+        console.log(err);
+        res.status(404).send({err: true})
     });
 } 
 

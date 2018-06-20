@@ -29,6 +29,10 @@ app.get('/get_artist/:gallery',artistsCtl.artistByGallery);
 app.get('/museum/:gallery',museumsCtl.museumsByGallery);
 
 //get article by article name and author 
+//@params:
+//author,
+//article,
+//username;
 app.post('/article',articlesCtl.getArticleByNA);
 
 //get one article by date from each genre
@@ -47,22 +51,41 @@ app.post('/add_dicounted_museum',usersCtl.addMuseumToDiscounts);
 app.post('/add_paid_gallery/Gallery',usersCtl.addGalleryToPaid);
 
 //add item to paid items
-app.post('/add_paid_object/Object',usersCtl.addObjectToPaid);
+//@params:
+//username
+//item
+app.post('/add_paid_object',usersCtl.addObjectToPaid);
 
 //create gallery
+//@params:
+//museumName,
+//galleryName, 
+//artist, 
+//genre, 
+//pictures, 
+//price, 
+//picture,
+//description
 app.post('/create_gallery',galleriesCtl.createGallery);
 
 //get pictures by preferences
+//@params:
+//username
 app.post('/preferences',galleriesCtl.getPicturesByPreferences);
 
 //get galleries by date
+//@params:
 app.get('/get_galleries',galleriesCtl.galleriesByDate);
 
 //get pictures from paid gallery
+//@params:
+//gallery
 app.get('/pictures/:gallery',galleriesCtl.picturesByGallery);
 
 //get galleries by artist
-app.get('/galleries_by_artis/:artist',galleriesCtl.galleriesByArtist);
+//@params:
+//artist
+app.get('/galleries_by_artist/:artist',galleriesCtl.galleriesByArtist);
 
 //API - index.html file
 app.get('/', (req, res) => {

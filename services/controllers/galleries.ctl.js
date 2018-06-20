@@ -58,7 +58,7 @@ function createGallery(req,res) {
         pictures = params.pictures, 
         price = params.price, 
         picture = params.picture,
-        description = description.description;
+        description = params.description;
 
     Museums.insertGallery(galleryName, museumName).then(() => {
         const gallery = new Galleries({
@@ -72,18 +72,17 @@ function createGallery(req,res) {
             price: price,
             description: description
         })
-        return gallery.save(err => {
-            if(err) {
-                return err;
-            } else {
-                return 'false';
+        console.log(gallery);
+        gallery.save().then((doc) => {
+            if(doc) {
+                res.status(200).send({err: false, docs: 'success'})
             }
+        }).catch(err => {
+            console.log(err);
+            res.status(404).send({err: true})
         });
-    }).then((err) => {
-        if(err && err==='false') {
-            res.status(200).send({err: false, docs: 'success'})
-        }
     }).catch(err => {
+        console.log(err);
         res.status(404).send({err: true})
     });
 }
