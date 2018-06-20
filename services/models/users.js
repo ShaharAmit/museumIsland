@@ -1,12 +1,13 @@
 const mongoose = require('mongoose'),
     users = new mongoose.Schema({
-        user_id: String,
-        name: String,
+        username: { type: String, required: true, index: { unique: true } },
+        password: { type: String, required: true },
+        name: {type: String, required: true},
         following: [String],
         purchases: [String],
         paid_galleries: [String],
         discounts_museums: [String],
-        preferences: { }
+        preferences: {} 
     }, {collection: 'Users'});
 
 const Users = mongoose.model('Users', users);

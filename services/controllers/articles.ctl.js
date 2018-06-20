@@ -2,28 +2,37 @@
     globlasCtl = require('./globals.ctl');
     usersCtl = require('./users.ctl')
 
-function getArticleById(res, id, userID) {
-    Articles.findById(id,"-_id -pictures -timestamp",(err, docs) => {
+//post article by name and author
+function getArticleByNA(req, res) {
+    const paramas = req.body;
+        author = paramas.author,
+        article = paramas.article;
+        username = paramas.username
+
+    Articles.findOne({
+        author: author, article_name: article
+    },"article_name author genre content picture -_id",
+    (err, doc) => {
         if (err) console.log(`query error:${err}`);
-        res.json(docs);
-        return docs;
-    }).then((doc) => {
-        usersCtl.updatePreferences(userID,'news',doc);
+        res.json(doc);
+        return doc;
+    }).then((document) => {
+        usersCtl.updatePreferences(username,'news',document);
     });
 }
 
 //get one article by date from each genre
-function articlesByDG(res) {
+function articlesByDG(req,res) {
     genre = 'genre';
     var promises = [];
     globlasCtl.getGlobals('genre').then(genres => {
         fields = genres.fields;
         console.log('fields',fields);
         fields.forEach(genre => {
-            console.log('genere',genre);
+            console.log('genre',genre);
             promises.push(Articles.findOne({
                 genre: genre
-            },(err, doc) => {
+            },"article_name author genre picture -_id",(err, doc) => { 
                 if (err) console.log(`query error:${err}`);
                 console.log('doc',doc);
                 return doc;
@@ -37,5 +46,5 @@ function articlesByDG(res) {
 
 module.exports = {
     articlesByDG,
-    getArticleById
+    getArticleByNA
 };

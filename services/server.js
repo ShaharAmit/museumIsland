@@ -4,8 +4,7 @@ const express = require('express'),
     articlesCtl = require('./controllers/articles.ctl'),
     museumsCtl = require('./controllers/museums.ctl'),
     artistsCtl = require('./controllers/artists.ctl'),
-    usersCtl = require('./controllers/users.ctl'),
-    testing = require('./controllers/testing.ctl');
+    usersCtl = require('./controllers/users.ctl');
 var bodyParser = require('body-parser');
 
     port = process.env.PORT || 3000;
@@ -25,11 +24,7 @@ app.use(
         next();
     });
 /*** All routes ***/
-
-app.get('/', (req,res) => {
-    const gallery ='Power Plays';
-    museumsCtl.museumsByGallery(res,gallery);
-});
+app.post('/', galleriesCtl.getPicturesByPreferences);
 
 app.get('/:artist', (req,res) => {
     const artist = req.params.artist;

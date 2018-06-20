@@ -1,24 +1,27 @@
 const mongoose = require('mongoose'),
     Museums = require('../models/museums');
 
-function museumsByGallery(res,gallery) {
-    Museums.find({galleries: gallery},(err, docs) => {
+//get
+function museumsByGallery(req,res) {
+    const gallery = req.params.gallery;
+    Museums.find({galleries: gallery},"-_id",(err, docs) => {
         if (err) console.log(`query error:${err}`);
         console.log(docs);
         res.json(docs);
     })
 }
-
-function insertGallery (galleryName, museumID, museumName) {
+ 
+//not by route
+function insertGallery (galleryName, museumName) {
     return Museums.findOne({
-        _id: museumID, museum_name: museumName
+        museum_name: museumName
     },"galleries -_id").then((doc) => {
         return doc.galleries;
     }).then(galleries => {    
         const newGalleries = galleries;
         newGalleries.push(galleryName);
         return Museums.update({
-            _id: museumID, museum_name: museumName
+            museum_name: museumName
         },{$set: {galleries: newGalleries}});
     });
 }

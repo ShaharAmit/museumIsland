@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 var Globals = require('../models/globals');
 
+//not by route
 function getGlobals(global) {
     console.log('test')
     return new Promise((res, rej) => { 

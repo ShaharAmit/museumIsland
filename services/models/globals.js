@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
       globals = new mongoose.Schema({
-        type: String,
-        fields: [String]
+        type: {type: String, required: true},
+        fields: [{type: String, required: true}]
       }, {collection: 'Globals'});
 
 const Globals = mongoose.model('Globals', globals);
