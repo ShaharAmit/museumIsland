@@ -240,26 +240,31 @@ function addGalleryToPaid(req,res) {
     Galleries.findOne({
         gallery_name: gallery
     }, "genre -_id").then(doc => {
-        console.log('doc',doc);
-        promises.push(Users.addGalleryToPaid(username,gallery,doc));
+        if(doc) {
+            promises.push(Users.addGalleryToPaid(username,gallery,doc));
 
-        Promise.all(promises).then((check) => {
-            if(check) {
-                res.status(200).send({
-                    err: false,
-                    docs: true
-                })
-            } else {
+            Promise.all(promises).then((check) => {
+                if(check) {
+                    res.status(200).send({
+                        err: false,
+                        docs: true
+                    })
+                } else {
+                    res.status(404).send({
+                        err: true
+                    })
+                }
+            }).catch(err => {
+                console.log(`query error:${err}`)
                 res.status(404).send({
                     err: true
-                })
-            }
-        }).catch(err => {
-            console.log(`query error:${err}`)
+                });
+            });
+        } else {
             res.status(404).send({
                 err: true
             });
-        });
+        }
     }).catch(err => {
         console.log(`query error:${err}`)
         res.status(404).send({

@@ -75,8 +75,9 @@ app.post('/check_for_discount',usersCtl.checkForDiscount);
 //add item to paid items
 //@params:
 //username
-//item
-app.post('/add_paid_object',usersCtl.addObjectToPaid);
+//item,
+//museum
+app.post('/add_paid_object',museumsCtl.addObjectToPaid);
 
 //create gallery
 //@params:

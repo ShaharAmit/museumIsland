@@ -159,8 +159,6 @@ function addMuseumToDiscounts(req, res) {
 
 //not a route
 function addGalleryToPaid(username, gallery, genre) {
-    console.log('addGalleryToPaid',username,gallery,genre);
-
     Users.findOne({
         username: username
     }, 'paid_galleries -_id').then((doc) => {
@@ -169,14 +167,13 @@ function addGalleryToPaid(username, gallery, genre) {
         const newpaidGalleries = paid_galleries;
         newpaidGalleries.push(gallery);
         return newpaidGalleries;
-    }).then(gen => {
-        if (gen) {
-            console.log(gen);
+    }).then(paid => {
+        if (paid) {
             Users.update({
                 username: username
             }, {
                 $set: {
-                    paid_galleries: gen
+                    paid_galleries: paid
                 }
             }, (err, docs) => {
                 if (err) {
@@ -203,11 +200,8 @@ function addGalleryToPaid(username, gallery, genre) {
 }
 
 //post
-function addObjectToPaid(req, res) {
-    const params = req.body;
-    username = params.username,
-        item = params.item;
-
+function addObjectToPaid(username, item, genre) {
+    console.log('genre',genre);
     Users.findOne({
         username: username
     }, 'purchases -_id').then((doc) => {
@@ -215,41 +209,44 @@ function addObjectToPaid(req, res) {
     }).then(purchases => {
         const newPaidObj = purchases;
         newPaidObj.push(item);
-        Users.update({
-            username: username
-        }, {
-            $set: {
-                purchases: newPaidObj
-            }
-        }, (err, docs) => {
-            if (err) {
-                console.log(`query error:${err}`)
-                res.status(404).send({
-                    err: true
-                })
-            } else {
-                res.status(200).send({
-                    err: false,
-                    docs: 'true'
-                })
-            }
-            return docs;
-
-        }).then((document) => {
-            updatePreferences(username, 'item', document);
-        });
+        return newPaidObj;
+    }).then(purchase => {
+        if(purchase) {
+            Users.update({
+                username: username
+            }, {
+                $set: {
+                    purchases: purchase
+                }
+            }, (err, docs) => {
+                if (err) {
+                    console.log(err);
+                    return false;
+                }
+                return docs;
+            }).then((docs) => {
+                if (docs) {
+                    updatePreferences(username, 'item', genre);
+                    return true;
+                }
+            }).catch(err => {
+                console.log(err);
+                return false;
+            });
+        } else {
+            return false;
+        }
     }).catch(err => {
         console.log(err);
-        res.status(404).send({
-            err: true
-        })
+        return false
     });
 }
 
 //not by route
 function updatePreferences(username, event, doc) {
-    console.log('updatePreferences',username,event,doc);
     const genre = doc.genre;
+    console.log('genre',genre);
+
     Users.findOne({
         username: username
     }, 'preferences -_id').then((doc) => {
