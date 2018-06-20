@@ -69,7 +69,7 @@ function removeMuseumFromFollowing(req, res) {
             } else {
                 res.status(200).send({
                     err: false,
-                    docs: docs
+                    docs: true
                 })
             }
         });
