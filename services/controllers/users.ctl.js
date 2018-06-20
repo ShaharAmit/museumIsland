@@ -3,9 +3,9 @@ const mongoose = require('mongoose'),
 
 //post
 function addMuseumToFollowing(req,res) {
-    const params = params.body;
-        username = paramas.username, 
-        museum = paramas.museum;
+    const params = req.body;
+    username = params.username,
+        museum = params.museum;
     Users.findOne({
         username: username
     }, 'following -_id').then((doc) => {
@@ -32,7 +32,7 @@ function addMuseumToFollowing(req,res) {
 //post
 function removeMuseumFromFollowing(req, res) {
     const params = req.body;
-        username = params.username, 
+    username = params.username,
         museum = params.museum;
     Users.findOne({
         username: username
@@ -81,7 +81,9 @@ function addMuseumToDiscounts(req, res) {
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
             console.log(docs);
-            res.json(docs);
+            res.send(JSON.stringify({
+                status: "successfully added museum " + museum + " to Discounts"
+            }, null, 3));
         });
     }).catch(err => console.log(err));
 }
@@ -108,7 +110,9 @@ function addGalleryToPaid(req, res) {
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
             console.log(docs);
-            res.json(docs);
+            res.send(JSON.stringify({
+                status: "successfully added gallery " + gallery + " to Paid Galleries"
+            }, null, 3));
             return docs;
         }).then((document) => {
             updatePreferences(username,'gallery',document);
@@ -138,7 +142,9 @@ function addObjectToPaid(req,res) {
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
             console.log(docs);
-            res.json(docs);
+            res.send(JSON.stringify({
+                status: "successfully added item to Paid Items "
+            }, null, 3));
             return docs;
         }).then((document) => {
             updatePreferences(username,'item',document);
