@@ -20,12 +20,14 @@ function addMuseumToFollowing(req, res) {
                 following: newFollowing
             }
         }, (err, docs) => {
-            if (err) console.log(`query error:${err}`);
-            else res.json({
-                paid: true
-            });
+            if (err) {
+                console.log(`query error:${err}`)
+                res.status(404).send({err: true})
+            } else {
+                res.status(200).send({err: false, docs: 'true'})
+            }
         });
-    }).catch(err => console.log(err));
+    }).catch(err => {console.log(err); res.status(404).send({err: true})});
 }
 
 //post
@@ -49,13 +51,17 @@ function removeMuseumFromFollowing(req, res) {
                 following: newFollowing
             }
         }, (err, docs) => {
-            if (err) console.log(`query error:${err}`);
-            else res.json({
-                paid: true
-            });
+            if (err) {
+                console.log(`query error:${err}`)
+                res.status(404).send({err: true})
+            } else {
+                res.status(200).send({err: false, docs: docs})
+            }
         });
-    }).catch(err => console.log(err));
+    }).catch(err => {console.log(err); res.status(404).send({err: true})});
 }
+
+//todo: get discount
 
 //post
 function addMuseumToDiscounts(req, res) {
@@ -77,19 +83,14 @@ function addMuseumToDiscounts(req, res) {
                 discounts_museums: newDiscount
             }
         }, (err, docs) => {
-            if (err) console.log(`query error:${err}`);
-<<<<<<< HEAD
-            else res.json({
-                added: true
-            });
-=======
-            console.log(docs);
-            res.send(JSON.stringify({
-                status: "successfully added museum " + museum + " to Discounts"
-            }, null, 3));
->>>>>>> 8aab67c9db1826d01e67bd56e434bdab754b608b
+            if (err) {
+                console.log(`query error:${err}`)
+                res.status(404).send({err: true})
+            } else {
+                res.status(200).send({err: false, docs: 'true'})
+            }
         });
-    }).catch(err => console.log(err));
+    }).catch(err => {console.log(err); res.status(404).send({err: true})});
 }
 
 //post
@@ -112,25 +113,17 @@ function addGalleryToPaid(req, res) {
                 paid_galleries: newpaidGalleries
             }
         }, (err, docs) => {
-            if (err) console.log(`query error:${err}`);
-<<<<<<< HEAD
-            else {
-                res.json({
-                    paid: true
-                });
-                return docs;
+            if (err) {
+                console.log(`query error:${err}`)
+                res.status(404).send({err: true})
+            } else {
+                res.status(200).send({err: false, docs: 'true'});
             }
-=======
-            console.log(docs);
-            res.send(JSON.stringify({
-                status: "successfully added gallery " + gallery + " to Paid Galleries"
-            }, null, 3));
             return docs;
->>>>>>> 8aab67c9db1826d01e67bd56e434bdab754b608b
         }).then((document) => {
             updatePreferences(username, 'gallery', document);
         });
-    }).catch(err => console.log(err));
+    }).catch(err => {console.log(err); res.status(404).send({err: true})});
 }
 
 //post
@@ -153,25 +146,18 @@ function addObjectToPaid(req, res) {
                 purchases: newPaidObj
             }
         }, (err, docs) => {
-            if (err) console.log(`query error:${err}`);
-<<<<<<< HEAD
-            else {
-                res.json({
-                    paid: true
-                });
-                return docs;
+            if (err) {
+                console.log(`query error:${err}`)
+                res.status(404).send({err: true})
+            } else {
+                res.status(200).send({err: false, docs: 'true'})
             }
-=======
-            console.log(docs);
-            res.send(JSON.stringify({
-                status: "successfully added item to Paid Items "
-            }, null, 3));
             return docs;
->>>>>>> 8aab67c9db1826d01e67bd56e434bdab754b608b
+            
         }).then((document) => {
             updatePreferences(username, 'item', document);
         });
-    }).catch(err => console.log(err));
+    }).catch(err => {console.log(err); res.status(404).send({err: true})});
 }
 
 //not by route

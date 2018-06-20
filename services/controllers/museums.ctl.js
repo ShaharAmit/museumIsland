@@ -5,10 +5,13 @@ const mongoose = require('mongoose'),
 function museumsByGallery(req,res) {
     const gallery = req.params.gallery;
     Museums.find({galleries: gallery},"-_id",(err, docs) => {
-        if (err) console.log(`query error:${err}`);
-        console.log(docs);
-        res.json(docs);
-    })
+        if (err) {
+            console.log(`query error:${err}`)
+            res.status(404).send({err: true})
+        } else {
+            res.status(200).send({err: false, docs: docs})
+        }
+    });
 }
  
 //not by route

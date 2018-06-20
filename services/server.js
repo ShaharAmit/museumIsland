@@ -9,8 +9,6 @@ var bodyParser = require('body-parser');
 
     port = process.env.PORT || 3000;
 
-
-
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.set('port', port);
@@ -23,77 +21,59 @@ app.use(
         res.set("Content-Type", "application/json");
         next();
     });
-/*** All routes ***/
-app.post('/', galleriesCtl.getPicturesByPreferences);
 
-app.get('/:artist', (req,res) => {
-    const artist = req.params.artist;
-    galleriesCtl.galleriesByArtist(res,artist);
-});
-
-
-app.get('/pictures/:gallery', (req,res) => {
-    const gallery = req.params.gallery;
-    galleriesCtl.picturesByGallery(res,gallery);
-});
+//get artist by gallery
+app.get('/get_artist/:gallery',artistsCtl.artistByGallery);
 
 //get museums by gallery
-app.get('/museum/:gallery', (req,res) => {
-    const gallery = req.params.gallery;
-    museumsCtl.museumsByGallery(res,gallery);
-});
+app.get('/museum/:gallery',museumsCtl.museumsByGallery);
 
-//get artists by gallery
-app.get('/artist/:gallery', (req,res) => {
-    const gallery = req.params.gallery;
-    artistsCtl.artistByGallery(res,gallery);
-});
+//get article by article name and author 
+app.post('/article',articlesCtl.getArticleByNA);
 
-//follow museum
-app.post('/followMuseum', (req,res) => {
-    usersCtl.addMuseumToFollowing(req,res);
-});
+//get one article by date from each genre
+app.get('/each_genre_article',articlesCtl.articlesByDG);
 
-//unfollow museum
-app.post('/unFollowMuseum', (req,res) => {
-    usersCtl.removeMuseumFromFollowing(req,res);
-});
+//add museum to following
+app.post('/add_following_museum',usersCtl.addMuseumToFollowing);
+    
+//remove museum from following
+app.post('/remove_following_museum',usersCtl.removeMuseumFromFollowing);
 
-//discount for museum
-app.post('/Discount', (req,res) => {
-    //var userID = req.body.userID;
-    //var museum = req.body.museum;
-    usersCtl.addMuseumToDiscounts(req,res);
-});
-
-//get article by article id
-app.post('/article', (req,res) => {
-    var id = req.body.id;
-    var userID = req.body.userID;
-    articlesCtl.getArticleById(res,id, userID);
-});
+//add museum to discount museums
+app.post('/add_dicounted_museum',usersCtl.addMuseumToDiscounts);
 
 //add gallery to paid galleries
-app.post('/Paid/Gallery', (req,res) => {
-    usersCtl.addGalleryToPaid(req,res);
-});
+app.post('/add_paid_gallery/Gallery',usersCtl.addGalleryToPaid);
 
-//add object to paid
-app.post('/Paid/Object', (req,res) => {
-    usersCtl.addObjectToPaid(req,res);
-});
+//add item to paid items
+app.post('/add_paid_object/Object',usersCtl.addObjectToPaid);
 
-app.post('/Prefered', (req,res) => {
-    galleriesCtl.getPicturesByPreferences(req,res);
-});
+//create gallery
+app.post('/create_gallery',galleriesCtl.createGallery);
+
+//get pictures by preferences
+app.post('/preferences',galleriesCtl.getPicturesByPreferences);
+
+//get galleries by date
+app.get('/get_galleries',galleriesCtl.galleriesByDate);
+
+//get pictures from paid gallery
+app.get('/pictures/:gallery',galleriesCtl.picturesByGallery);
+
+//get galleries by artist
+app.get('/galleries_by_artis/:artist',galleriesCtl.galleriesByArtist);
 
 //API - index.html file
-app.get('/', function(req, res){
+app.get('/', (req, res) => {
     res.sendfile('index.html');
 });
 
+app.all('*', (req,res) => {
+    res.status(404).send({err: false, docs: 'wrong route'});
+});
 
-app.listen(port,
-    () => {
-        console.log(`listening on port ${port}`);
-    });
+
+app.listen(port, () => {
+    console.log(`listening on port ${port}`);
+});

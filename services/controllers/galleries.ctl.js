@@ -6,12 +6,15 @@ const mongoose = require('mongoose'),
 //get
 function galleriesByDate(req,res) {
     Galleries.find({},"picture gallery_name -_id",(err, docs) => {
-            if (err) console.log(`query error:${err}`);
-            else res.json(docs);
-        }).sort({
-            'timestamp': 'descending'
-        })
-        .limit(3);
+        if (err) {
+            console.log(`query error:${err}`)
+            res.status(404).send({err: true})
+        } else {
+            res.status(200).send({err: false, docs: docs})
+        }
+    }).sort({
+        'timestamp': 'descending'
+    }).limit(3);
 }
 
 //get
@@ -21,10 +24,10 @@ function galleriesByArtist(req, res) {
         artist: artist
     }, "picture gallery_name -_id", (err, docs) => {
         if (err) {
-            console.log(`query error:${err}`);
-            res.json({err: true});
-        } else { 
-            res.json({err: false, docs: docs});
+            console.log(`query error:${err}`)
+            res.status(404).send({err: true})
+        } else {
+            res.status(200).send({err: false, docs: docs})
         }
     })
 }
@@ -36,15 +39,15 @@ function picturesByGallery(req, res) {
         gallery_name: gallery
     }, "pictures -_id", (err, doc) => {
         if (err) {
-            console.log(`query error:${err}`);
-            res.json({err: true});
-        } else { 
+            console.log(`query error:${err}`)
+            res.status(404).send({err: true})
+        } else {
             const pictures = doc.pictures.slice(0, 3);
-            res.json({err: false, docs: pictures});
+            res.status(200).send({err: false, docs: pictures})
         }
     })
 }
-
+ 
 //post
 function createGallery(req,res) {
     const params = req.body,
@@ -78,14 +81,15 @@ function createGallery(req,res) {
         });
     }).then((err) => {
         if(err && err==='false') {
-            res.json({created: 'gallery created'})
+            res.status(200).send({err: false, docs: 'success'})
         }
     }).catch(err => {
-        res.json({created: 'could not create gallery at this moment'});
+        res.status(404).send({err: true})
     });
 }
 
 //not by route
+//get gallery by date and genre
 function galleryByDG(genre,lim) {
     console.log('genre',genre);
     return new Promise((res, rej) => { 
@@ -141,10 +145,10 @@ function getPicturesByPreferences(req,res) {
                         pictures.push(obj[k][f]);
                     }
                 }
-                res.json(pictures);
+                res.status(200).send({err: false, docs: pictures})
             })
         } else {
-
+            //todo: gallerbygd
         }
     })
 }

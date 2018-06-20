@@ -6,20 +6,24 @@
 function getArticleByNA(req, res) {
     const params = req.body;
         author = params.author,
-        article = params.article;
-        username = params.username
+        article = params.article,
+        username = params.username;
 
     Articles.findOne({
         author: author, article_name: article
     },"article_name author genre content picture -_id",
     (err, doc) => {
-        if (err) console.log(`query error:${err}`);
-        res.json(doc);
+        if (err) {
+            console.log(`query error:${err}`)
+            res.status(404).send({err: true})
+        }   else {
+            res.status(200).send({err: false, docs: docs})
+        }
         return doc;
     }).then((document) => {
         usersCtl.updatePreferences(username,'news',document);
     });
-}
+} 
 
 //get one article by date from each genre
 function articlesByDG(req,res) {
@@ -36,7 +40,10 @@ function articlesByDG(req,res) {
             }).sort({'timestamp': 'descending'}));
         });
         Promise.all(promises).then(docs => {
-            res.json({'docs': docs});
+            res.status(200).send({err: false, docs: docs})
+        }).catch(err => {
+            console.log(`query error:${err}`)
+            res.status(404).send({err: true})
         });
     });
 }
