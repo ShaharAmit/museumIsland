@@ -9,29 +9,193 @@
 </head>
 <body>
 <h1>MuseumIsland API:</h1>
-<div class="card text-left">
+
+<a class="btn btn-primary" href="#artistByGallery1" role="button">artistByGallery</a>
+<a class="btn btn-secondary" href="#museumsByGallery1" role="button">museumsByGallery</a>
+<a class="btn btn-danger" href="#getArticleByNA1" role="button">getArticleByNA</a>
+<a class="btn btn-success" href="#articlesByDG1" role="button">articlesByDG</a>
+<a class="btn btn-danger" href="#followResponse1" role="button">addMuseumToFollowing</a>
+<a class="btn btn-warning" href="#unFollowResponse1" role="button">removeMuseumFromFollowing</a>
+<a class="btn btn-info" href="#addMuseumToDiscounts1" role="button">addMuseumToDiscounts1</a>
+<a class="btn btn-secondary" href="#addGalleryToPaid1" role="button">addGalleryToPaid</a>
+<a class="btn btn-dark" href="#checkForDiscount1" role="button">checkForDiscount</a>
+<a class="btn btn-primary" href="#addObjectToPaid1" role="button">addObjectToPaid</a>
+<a class="btn btn-secondary" href="#createGallery1" role="button">createGallery</a>
+<a class="btn btn-success" href="#preferences1" role="button">preferences</a>
+<a class="btn btn-danger" href="#galleriesByDate1" role="button">galleriesByDate</a>
+<a class="btn btn-warning" href="#picturesByGallery1" role="button">picturesByGallery</a>
+<a class="btn btn-info" href="#galleriesByArtist1" role="button">galleriesByArtist</a>
+<a class="btn btn-success" href="#getArticleById1" role="button">getArticleById</a>
+
+
+<div class="card text-left" id="artistByGallery1">
     <div class="alert alert-primary" role="alert">
-        <h2><span class="badge badge-secondary">GET:</span>galleriesByArtist</h2>
+        <h2><span class="badge badge-secondary">GET:</span>artistByGallery</h2>
     </div>
     <div class="card-body">
-        <h5 class="card-title">Relative Path:<span><a href="http://localhost:3000/Christophe%20Fouin">/:artist</a></span></h5>
+        <h5 class="card-title">Relative Path:<span><a href="http://localhost:3000/get_artist/Power Plays">/get_artist/:gallery</a></span></h5>
         <h5 class="card-text">API Response:</h5>
-        <pre id="galleriesByArtist"></pre>
+        <pre id="artistByGallery"></pre>
     </div>
 </div>
 
-<div class="card text-left">
+
+<div class="card text-left" id="museumsByGallery1">
     <div class="alert alert-primary" role="alert">
+        <h2><span class="badge badge-secondary">GET:</span>museumsByGallery</h2>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Relative Path:<span><a href="http://localhost:3000/museum/Power Plays">/museum/:gallery</a></span></h5>
+        <h5 class="card-text">API Response:</h5>
+        <pre id="museumsByGallery"></pre>
+    </div>
+</div>
+
+<div class="card text-left" id="getArticleByNA1">
+    <div class="alert alert-primary" role="alert">
+        <h2><span class="badge badge-secondary">GET:</span>getArticleByNA</h2>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Relative Path:<span>/article</span></h5>
+        <h5 class="card-text">Parameters:{author,article,username}</h5>
+        <h5 class="card-text">API Response:</h5>
+        <pre id="getArticleByNA"></pre>
+    </div>
+</div>
+
+<div class="card text-left" id="articlesByDG1">
+    <div class="alert alert-primary" role="alert">
+        <h2><span class="badge badge-secondary">GET:</span>articlesByDG</h2>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Relative Path:<span><a href="http://localhost:3000/each_genre_article">/each_genre_article</a></span></h5>
+        <h5 class="card-text">API Response:</h5>
+        <pre id="articlesByDG"></pre>
+    </div>
+</div>
+
+
+<div class="card text-left" id="followResponse1">
+    <div class="alert alert-primary" role="alert">
+        <h2><span class="badge badge-secondary">POST:</span>addMuseumToFollowing</h2>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Relative Path:<span>/add_following_museum</span></h5>
+        <h5 class="card-text">Parameters:{username,museum}</h5>
+        <h5 class="card-text">API Response:</h5>
+        <pre id="followResponse"></pre>
+
+    </div>
+</div>
+
+
+<div class="alert alert-primary" role="alert" id="unFollowResponse1">
+    <h2><span class="badge badge-secondary">POST:</span>removeMuseumFromFollowing</h2>
+</div>
+<div class="card-body">
+    <h5 class="card-title">Relative Path:<span>/remove_following_museum</span></h5>
+    <h5 class="card-text">Parameters:{username,museum}</h5>
+    <h5 class="card-text">API Response:</h5>
+    <pre id="unFollowResponse"></pre>
+</div>
+
+<div class="alert alert-primary" role="alert" id="addMuseumToDiscounts1">
+    <h2><span class="badge badge-secondary">POST:</span>addMuseumToDiscounts</h2>
+</div>
+<div class="card-body">
+    <h5 class="card-title">Relative Path:<span>/add_dicounted_museum</span></h5>
+    <h5 class="card-text">Parameters:{username,museum}</h5>
+    <h5 class="card-text">API Response:</h5>
+    <pre id="addMuseumToDiscounts"></pre>
+</div>
+
+<div class="alert alert-primary" role="alert" id="addGalleryToPaid1">
+    <h2><span class="badge badge-secondary">POST:</span>addGalleryToPaid</h2>
+</div>
+<div class="card-body">
+    <h5 class="card-title">Relative Path:<span>/add_paid_gallery</span></h5>
+    <h5 class="card-text">Parameters:{username,gallery}</h5>
+    <h5 class="card-text">API Response:</h5>
+    <pre id="addGalleryToPaid"></pre>
+</div>
+
+<div class="alert alert-primary" role="alert" id="checkForDiscount1">
+    <h2><span class="badge badge-secondary">POST:</span>checkForDiscount</h2>
+</div>
+<div class="card-body">
+    <h5 class="card-title">Relative Path:<span>/check_for_discount</span></h5>
+    <h5 class="card-text">Parameters:{username,museum}</h5>
+    <h5 class="card-text">API Response:</h5>
+    <pre id="checkForDiscount"></pre>
+</div>
+
+<div class="alert alert-primary" role="alert" id="addObjectToPaid1">
+    <h2><span class="badge badge-secondary">POST:</span>addObjectToPaid</h2>
+</div>
+<div class="card-body">
+    <h5 class="card-title">Relative Path:<span>/add_paid_object</span></h5>
+    <h5 class="card-text">Parameters:{username,item,museum}</h5>
+    <h5 class="card-text">API Response:</h5>
+    <pre id="addObjectToPaid"></pre>
+</div>
+
+
+<div class="alert alert-primary" role="alert" id="createGallery1">
+    <h2><span class="badge badge-secondary">POST:</span>createGallery</h2>
+</div>
+<div class="card-body">
+    <h5 class="card-title">Relative Path:<span>/create_gallery</span></h5>
+    <h5 class="card-text">Parameters:{museumName,galleryName,artist,genre,pictures,price,picture,description}</h5>
+    <h5 class="card-text">API Response:</h5>
+    <pre id="createGallery"></pre>
+</div>
+
+<div class="alert alert-primary" role="alert" id="preferences1">
+    <h2><span class="badge badge-secondary">POST:</span>getPicturesByPreferences</h2>
+</div>
+<div class="card-body">
+    <h5 class="card-title">Relative Path:<span>/preferences</span></h5>
+    <h5 class="card-text">Parameters:{username}</h5>
+    <h5 class="card-text">API Response:</h5>
+    <pre id="preferences"></pre>
+</div>
+
+<div class="alert alert-primary" role="alert" id="galleriesByDate1">
+    <h2><span class="badge badge-secondary">GET:</span>galleriesByDate</h2>
+</div>
+<div class="card-body">
+    <h5 class="card-title">Relative Path:<span><a href="http://localhost:3000/get_galleries">/galleriesByDate</a></span></h5>
+    <h5 class="card-text">API Response:</h5>
+    <pre id="galleriesByDate"></pre>
+</div>
+
+
+<div class="card text-left">
+    <div class="alert alert-primary" role="alert" id="picturesByGallery1">
         <h2><span class="badge badge-secondary">GET:</span>picturesByGallery</h2>
     </div>
     <div class="card-body">
         <h5 class="card-title">Relative Path:<span><a href="http://localhost:3000/pictures/Power Plays">/pictures/:gallery</a></span></h5>
+        <h5 class="card-text">Parameters:{gallery}</h5>
         <h5 class="card-text">API Response:</h5>
         <pre id="picturesByGallery"></pre>
     </div>
 </div>
 
-<div class="alert alert-primary" role="alert">
+
+<div class="card text-left">
+    <div class="alert alert-primary" role="alert" id="galleriesByArtist1">
+        <h2><span class="badge badge-secondary">GET:</span>galleriesByArtist</h2>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Relative Path:<span><a href="http://localhost:3000/galleries_by_artist/Christophe Fouin">/galleries_by_artist/:artist</a></span></h5>
+        <h5 class="card-text">API Response:</h5>
+        <pre id="galleriesByArtist"></pre>
+    </div>
+</div>
+
+
+<div class="alert alert-primary" role="alert" id="getArticleById1">
     <h2><span class="badge badge-secondary">POST:</span>getArticleById</h2>
 </div>
 <div class="card-body">
@@ -43,29 +207,7 @@
 </div>
 
 
-<div class="card text-left">
-    <div class="alert alert-primary" role="alert">
-        <h2><span class="badge badge-secondary">POST:</span>addMuseumToFollowing</h2>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">Relative Path:<span>/followMuseum</span></h5>
-        <h5 class="card-text">Parameters:{userID,museum}</h5>
-        <h5 class="card-text">API Response:</h5>
-        <pre id="followResponse"></pre>
 
-    </div>
-</div>
-
-
-<div class="alert alert-primary" role="alert">
-    <h2><span class="badge badge-secondary">POST:</span>removeMuseumFromFollowing</h2>
-</div>
-<div class="card-body">
-    <h5 class="card-title">Relative Path:<span>/unFollowMuseum</span></h5>
-    <h5 class="card-text">Parameters:{userID,museum}</h5>
-    <h5 class="card-text">API Response:</h5>
-    <pre id="unFollowResponse"></pre>
-</div>
 
 
 
