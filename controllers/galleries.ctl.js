@@ -61,6 +61,11 @@ function picturesByGallery(req, res) {
                 docs: pictures
             })
         }
+    }).catch(err => {
+        console.log(`query error:${err}`)
+        res.status(404).send({
+            err: true
+        });
     })
 }
 
