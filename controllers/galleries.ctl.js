@@ -236,6 +236,11 @@ function getPicturesByPreferences(req, res) {
                 })
             });
         }
+    }).catch(err => {
+        console.log(`query error:${err}`)
+            res.status(404).send({
+            err: true
+        })
     })
 }
 
