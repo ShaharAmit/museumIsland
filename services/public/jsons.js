@@ -175,9 +175,6 @@ var json9 = {
 };
 
 
-
-
-
 document.getElementById("artistByGallery").innerHTML = JSON.stringify(json1, undefined, 2);
 document.getElementById("museumsByGallery").innerHTML = JSON.stringify(json2, undefined, 2);
 document.getElementById("articlesByDG").innerHTML = JSON.stringify(json3, undefined, 2);
