@@ -2,9 +2,9 @@ const mongoose = require('mongoose'),
     Users = require('../models/users');
 
 //post
-function addMuseumToFollowing(req,res) {
+function addMuseumToFollowing(req, res) {
     const params = params.body;
-        username = paramas.username, 
+    username = paramas.username,
         museum = paramas.museum;
     Users.findOne({
         username: username
@@ -21,10 +21,9 @@ function addMuseumToFollowing(req,res) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
-            console.log(docs);
-            res.send(JSON.stringify({
-                status: "successfully added museum " + museum + " to following"
-            }, null, 3));
+            else res.json({
+                paid: true
+            });
         });
     }).catch(err => console.log(err));
 }
@@ -32,7 +31,7 @@ function addMuseumToFollowing(req,res) {
 //post
 function removeMuseumFromFollowing(req, res) {
     const params = req.body;
-        username = params.username, 
+    username = params.username,
         museum = params.museum;
     Users.findOne({
         username: username
@@ -51,10 +50,9 @@ function removeMuseumFromFollowing(req, res) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
-            console.log(docs);
-            res.send(JSON.stringify({
-                status: "successfully removed museum " + museum + " from following"
-            }, null, 3));
+            else res.json({
+                paid: true
+            });
         });
     }).catch(err => console.log(err));
 }
@@ -62,7 +60,7 @@ function removeMuseumFromFollowing(req, res) {
 //post
 function addMuseumToDiscounts(req, res) {
     const params = req.body;
-        username = params.username, 
+    username = params.username,
         museum = params.museum;
 
     Users.findOne({
@@ -80,8 +78,9 @@ function addMuseumToDiscounts(req, res) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
-            console.log(docs);
-            res.json(docs);
+            else res.json({
+                added: true
+            });
         });
     }).catch(err => console.log(err));
 }
@@ -89,7 +88,7 @@ function addMuseumToDiscounts(req, res) {
 //post
 function addGalleryToPaid(req, res) {
     const params = req.body;
-        username = params.username, 
+    username = params.username,
         gallery = params.gallery;
 
     Users.findOne({
@@ -107,19 +106,22 @@ function addGalleryToPaid(req, res) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
-            console.log(docs);
-            res.json(docs);
-            return docs;
+            else {
+                res.json({
+                    paid: true
+                });
+                return docs;
+            }
         }).then((document) => {
-            updatePreferences(username,'gallery',document);
+            updatePreferences(username, 'gallery', document);
         });
     }).catch(err => console.log(err));
 }
 
 //post
-function addObjectToPaid(req,res) {
+function addObjectToPaid(req, res) {
     const params = req.body;
-        username = params.username, 
+    username = params.username,
         item = params.item;
 
     Users.findOne({
@@ -137,11 +139,14 @@ function addObjectToPaid(req,res) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
-            console.log(docs);
-            res.json(docs);
-            return docs;
+            else {
+                res.json({
+                    paid: true
+                });
+                return docs;
+            }
         }).then((document) => {
-            updatePreferences(username,'item',document);
+            updatePreferences(username, 'item', document);
         });
     }).catch(err => console.log(err));
 }
@@ -149,7 +154,7 @@ function addObjectToPaid(req,res) {
 //not by route
 function updatePreferences(username, event, doc) {
     const genre = doc.genre;
-    Users.findOne({ 
+    Users.findOne({
         username: username
     }, 'preferences -_id').then((doc) => {
         return doc.preferences;
@@ -180,8 +185,7 @@ function updatePreferences(username, event, doc) {
                     newPreferences[genre] = 3;
                 }
                 break;
-        } 
-        console.log(newPreferences);
+        }
         Users.update({
             username: username
         }, {
@@ -197,7 +201,9 @@ function updatePreferences(username, event, doc) {
 
 //not by route
 function getPreferences(userName) {
-    return Users.findOne({username: userName},"preferences -_id");
+    return Users.findOne({
+        username: userName
+    }, "preferences -_id");
 }
 
 module.exports = {

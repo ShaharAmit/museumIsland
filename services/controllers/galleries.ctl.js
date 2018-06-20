@@ -7,9 +7,7 @@ const mongoose = require('mongoose'),
 function galleriesByDate(req,res) {
     Galleries.find({},"picture gallery_name -_id",(err, docs) => {
             if (err) console.log(`query error:${err}`);
-            console.log(docs);
-            res.json(docs);
-            return;
+            else res.json(docs);
         }).sort({
             'timestamp': 'descending'
         })
@@ -22,9 +20,12 @@ function galleriesByArtist(req, res) {
     Galleries.find({
         artist: artist
     }, "picture gallery_name -_id", (err, docs) => {
-        if (err) console.log(`query error:${err}`);
-        console.log(docs);
-        res.json(docs);
+        if (err) {
+            console.log(`query error:${err}`);
+            res.json({err: true});
+        } else { 
+            res.json({err: false, docs: docs});
+        }
     })
 }
 
@@ -34,9 +35,13 @@ function picturesByGallery(req, res) {
     Galleries.findOne({
         gallery_name: gallery
     }, "pictures -_id", (err, doc) => {
-        if (err) console.log(`query error:${err}`);
-        const pictures = doc.pictures.slice(0, 3);
-        res.json({pictures: pictures});
+        if (err) {
+            console.log(`query error:${err}`);
+            res.json({err: true});
+        } else { 
+            const pictures = doc.pictures.slice(0, 3);
+            res.json({err: false, docs: pictures});
+        }
     })
 }
 
@@ -44,7 +49,6 @@ function picturesByGallery(req, res) {
 function createGallery(req,res) {
     const params = req.body,
         museumName = params.museumName,
-        museumID = params.museumID,
         galleryName = params.galleryName, 
         artist = params.artist, 
         genre = params.genre, 
@@ -69,17 +73,16 @@ function createGallery(req,res) {
             if(err) {
                 return err;
             } else {
-                return true;
+                return 'false';
             }
         });
-    }).then(() => {
-        console.log('gallery created');
-        res.json({created: 'gallery created'})
+    }).then((err) => {
+        if(err && err==='false') {
+            res.json({created: 'gallery created'})
+        }
     }).catch(err => {
-        console.log(err);
-        res.json({created: 'could not create gallery this moment'});
+        res.json({created: 'could not create gallery at this moment'});
     });
-
 }
 
 //not by route
@@ -109,7 +112,6 @@ function galleryByDG(genre,lim) {
 
 //post
 function getPicturesByPreferences(req,res) {
-    console.log('here');
     const userName = req.body.username;
     Users.getPreferences(userName).then(prefernces => {
         promises =[];

@@ -4,10 +4,10 @@
 
 //post article by name and author
 function getArticleByNA(req, res) {
-    const paramas = req.body;
-        author = paramas.author,
-        article = paramas.article;
-        username = paramas.username
+    const params = req.body;
+        author = params.author,
+        article = params.article;
+        username = params.username
 
     Articles.findOne({
         author: author, article_name: article
@@ -27,14 +27,11 @@ function articlesByDG(req,res) {
     var promises = [];
     globlasCtl.getGlobals('genre').then(genres => {
         fields = genres.fields;
-        console.log('fields',fields);
         fields.forEach(genre => {
-            console.log('genre',genre);
             promises.push(Articles.findOne({
                 genre: genre
             },"article_name author genre picture -_id",(err, doc) => { 
                 if (err) console.log(`query error:${err}`);
-                console.log('doc',doc);
                 return doc;
             }).sort({'timestamp': 'descending'}));
         });
