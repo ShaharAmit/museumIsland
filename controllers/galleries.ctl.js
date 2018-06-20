@@ -55,7 +55,10 @@ function picturesByGallery(req, res) {
                 err: true
             });
         } else {
-            const pictures = doc.pictures.slice(0, 3);
+            let pictures=[];
+            if(doc && doc.pictures) {
+                pictures = doc.pictures.slice(0, 3);
+            }
             res.status(200).send({
                 err: false,
                 docs: pictures
