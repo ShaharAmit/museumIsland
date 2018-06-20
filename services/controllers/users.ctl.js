@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
     Users = require('../models/users');
-
+    
 //post
 function addMuseumToFollowing(req, res) {
     const params = req.body;
@@ -22,12 +22,22 @@ function addMuseumToFollowing(req, res) {
         }, (err, docs) => {
             if (err) {
                 console.log(`query error:${err}`)
-                res.status(404).send({err: true})
+                res.status(404).send({
+                    err: true
+                })
             } else {
-                res.status(200).send({err: false, docs: 'true'})
+                res.status(200).send({
+                    err: false,
+                    docs: 'true'
+                })
             }
         });
-    }).catch(err => {console.log(err); res.status(404).send({err: true})});
+    }).catch(err => {
+        console.log(err);
+        res.status(404).send({
+            err: true
+        })
+    });
 }
 
 //post
@@ -53,26 +63,70 @@ function removeMuseumFromFollowing(req, res) {
         }, (err, docs) => {
             if (err) {
                 console.log(`query error:${err}`)
-                res.status(404).send({err: true})
+                res.status(404).send({
+                    err: true
+                })
             } else {
-                res.status(200).send({err: false, docs: docs})
+                res.status(200).send({
+                    err: false,
+                    docs: docs
+                })
             }
         });
-    }).catch(err => {console.log(err); res.status(404).send({err: true})});
+    }).catch(err => {
+        console.log(err);
+        res.status(404).send({
+            err: true
+        })
+    });
 }
 
-//todo: get discount
+//post
+function checkForDiscount(req, res) {
+    const params = req.body;
+    username = params.username;
+    museum = params.museum;
+    Users.findOne({
+        username: username,
+        discounts_museums: museum
+    }, 'discounts_museums -_id', (err, doc) => {
+        if (err) {
+            console.log(err);
+            res.status(404).send({
+                err: true
+            });
+        } else {
+            if (doc && doc.discounts_museums) {
+                res.status(200).send({
+                    err: false,
+                    doc: true
+                })
+            } else {
+                res.status(200).send({
+                    err: false,
+                    doc: false
+                })
+            }
+        }
+    }).catch(err => {
+        console.log(err);
+        res.status(404).send({
+            err: true
+        });
+    });
+}
 
 //post
 function addMuseumToDiscounts(req, res) {
     const params = req.body;
     username = params.username,
         museum = params.museum;
-
     Users.findOne({
         username: username
     }, 'discounts_museums -_id').then((doc) => {
         return doc.discounts_museums;
+    }).then({
+        Galleries
     }).then(discounts_museums => {
         const newDiscount = discounts_museums;
         newDiscount.push(museum);
@@ -85,19 +139,27 @@ function addMuseumToDiscounts(req, res) {
         }, (err, docs) => {
             if (err) {
                 console.log(`query error:${err}`)
-                res.status(404).send({err: true})
+                res.status(404).send({
+                    err: true
+                })
             } else {
-                res.status(200).send({err: false, docs: 'true'})
+                res.status(200).send({
+                    err: false,
+                    docs: 'true'
+                })
             }
         });
-    }).catch(err => {console.log(err); res.status(404).send({err: true})});
+    }).catch(err => {
+        console.log(err);
+        res.status(404).send({
+            err: true
+        })
+    });
 }
 
-//post
-function addGalleryToPaid(req, res) {
-    const params = req.body;
-    username = params.username,
-        gallery = params.gallery;
+//not a route
+function addGalleryToPaid(username, gallery, genre) {
+    console.log('addGalleryToPaid',username,gallery,genre);
 
     Users.findOne({
         username: username
@@ -106,24 +168,38 @@ function addGalleryToPaid(req, res) {
     }).then(paid_galleries => {
         const newpaidGalleries = paid_galleries;
         newpaidGalleries.push(gallery);
-        Users.update({
-            username: username
-        }, {
-            $set: {
-                paid_galleries: newpaidGalleries
-            }
-        }, (err, docs) => {
-            if (err) {
-                console.log(`query error:${err}`)
-                res.status(404).send({err: true})
-            } else {
-                res.status(200).send({err: false, docs: 'true'});
-            }
-            return docs;
-        }).then((document) => {
-            updatePreferences(username, 'gallery', document);
-        });
-    }).catch(err => {console.log(err); res.status(404).send({err: true})});
+        return newpaidGalleries;
+    }).then(gen => {
+        if (gen) {
+            console.log(gen);
+            Users.update({
+                username: username
+            }, {
+                $set: {
+                    paid_galleries: gen
+                }
+            }, (err, docs) => {
+                if (err) {
+                    console.log(err);
+                    return false;
+                }
+                return docs;
+            }).then((docs) => {
+                if (docs) {
+                    updatePreferences(username, 'gallery', genre);
+                    return true;
+                }
+            }).catch(err => {
+                console.log(err);
+                return false;
+            });
+        } else {
+            return false;
+        }
+    }).catch(err => {
+        console.log(err);
+        return false
+    });
 }
 
 //post
@@ -148,20 +224,31 @@ function addObjectToPaid(req, res) {
         }, (err, docs) => {
             if (err) {
                 console.log(`query error:${err}`)
-                res.status(404).send({err: true})
+                res.status(404).send({
+                    err: true
+                })
             } else {
-                res.status(200).send({err: false, docs: 'true'})
+                res.status(200).send({
+                    err: false,
+                    docs: 'true'
+                })
             }
             return docs;
-            
+
         }).then((document) => {
             updatePreferences(username, 'item', document);
         });
-    }).catch(err => {console.log(err); res.status(404).send({err: true})});
+    }).catch(err => {
+        console.log(err);
+        res.status(404).send({
+            err: true
+        })
+    });
 }
 
 //not by route
 function updatePreferences(username, event, doc) {
+    console.log('updatePreferences',username,event,doc);
     const genre = doc.genre;
     Users.findOne({
         username: username
@@ -222,5 +309,6 @@ module.exports = {
     addGalleryToPaid,
     addObjectToPaid,
     updatePreferences,
-    getPreferences
+    getPreferences,
+    checkForDiscount
 };

@@ -23,9 +23,13 @@ app.use(
     });
 
 //get artist by gallery
+//@params:
+//gallery,
 app.get('/get_artist/:gallery',artistsCtl.artistByGallery);
 
 //get museums by gallery
+//@params:
+//gallery,
 app.get('/museum/:gallery',museumsCtl.museumsByGallery);
 
 //get article by article name and author 
@@ -39,16 +43,34 @@ app.post('/article',articlesCtl.getArticleByNA);
 app.get('/each_genre_article',articlesCtl.articlesByDG);
 
 //add museum to following
+//@params:
+//username
+//museum
 app.post('/add_following_museum',usersCtl.addMuseumToFollowing);
     
 //remove museum from following
+//@params:
+//username
+//museum
 app.post('/remove_following_museum',usersCtl.removeMuseumFromFollowing);
 
-//add museum to discount museums
+//add museum to discount museums\
+//@params:
+//username
+//museum
 app.post('/add_dicounted_museum',usersCtl.addMuseumToDiscounts);
 
 //add gallery to paid galleries
-app.post('/add_paid_gallery/Gallery',usersCtl.addGalleryToPaid);
+//@params:
+//username
+//gallery
+app.post('/add_paid_gallery',galleriesCtl.addGalleryToPaid);
+
+//check for discount
+//@params:
+//username
+//museum
+app.post('/check_for_discount',usersCtl.checkForDiscount);
 
 //add item to paid items
 //@params:
