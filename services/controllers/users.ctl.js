@@ -125,10 +125,11 @@ function addMuseumToDiscounts(req, res) {
         username: username
     }, 'discounts_museums -_id').then((doc) => {
         return doc.discounts_museums;
-    }).then({
-        Galleries
     }).then(discounts_museums => {
-        const newDiscount = discounts_museums;
+        let newDiscount = [];
+        if(discounts_museums) {
+            newDiscount = discounts_museums;
+        }
         newDiscount.push(museum);
         Users.update({
             username: username
