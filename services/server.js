@@ -51,23 +51,19 @@ app.get('/artist/:gallery', (req,res) => {
 
 //follow museum
 app.post('/followMuseum', (req,res) => {
-    var userID = req.body.userID;
-    var museum = req.body.museum;
-    usersCtl.addMuseumToFollowing(res,userID,museum);
+    usersCtl.addMuseumToFollowing(req,res);
 });
 
 //unfollow museum
 app.post('/unFollowMuseum', (req,res) => {
-    var userID = req.body.userID;
-    var museum = req.body.museum;
-    usersCtl.removeMuseumFromFollowing(res,userID,museum);
+    usersCtl.removeMuseumFromFollowing(req,res);
 });
 
 //discount for museum
 app.post('/Discount', (req,res) => {
-    var userID = req.body.userID;
-    var museum = req.body.museum;
-    usersCtl.addMuseumToDiscounts(res,userID,museum);
+    //var userID = req.body.userID;
+    //var museum = req.body.museum;
+    usersCtl.addMuseumToDiscounts(req,res);
 });
 
 //get article by article id
@@ -79,22 +75,23 @@ app.post('/article', (req,res) => {
 
 //add gallery to paid galleries
 app.post('/Paid/Gallery', (req,res) => {
-    var userID = req.body.userID;
-    var gallery= req.body.gallery;
-    usersCtl.addGalleryToPaid(res,userID,gallery);
+    usersCtl.addGalleryToPaid(req,res);
 });
 
 //add object to paid
 app.post('/Paid/Object', (req,res) => {
-    var userID = req.body.userID;
-    var object= req.body.object;
-    usersCtl.addObjectToPaid(res,userID,object);
+    usersCtl.addObjectToPaid(req,res);
+});
+
+app.post('/Prefered', (req,res) => {
+    galleriesCtl.getPicturesByPreferences(req,res);
 });
 
 //API - index.html file
 app.get('/', function(req, res){
     res.sendfile('index.html');
 });
+
 
 app.listen(port,
     () => {

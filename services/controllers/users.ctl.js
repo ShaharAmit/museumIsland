@@ -4,8 +4,8 @@ const mongoose = require('mongoose'),
 //post
 function addMuseumToFollowing(req, res) {
     const params = params.body;
-    username = paramas.username,
-        museum = paramas.museum;
+    username = params.username,
+        museum = params.museum;
     Users.findOne({
         username: username
     }, 'following -_id').then((doc) => {
@@ -78,9 +78,16 @@ function addMuseumToDiscounts(req, res) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
+<<<<<<< HEAD
             else res.json({
                 added: true
             });
+=======
+            console.log(docs);
+            res.send(JSON.stringify({
+                status: "successfully added museum " + museum + " to Discounts"
+            }, null, 3));
+>>>>>>> 8aab67c9db1826d01e67bd56e434bdab754b608b
         });
     }).catch(err => console.log(err));
 }
@@ -106,12 +113,20 @@ function addGalleryToPaid(req, res) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
+<<<<<<< HEAD
             else {
                 res.json({
                     paid: true
                 });
                 return docs;
             }
+=======
+            console.log(docs);
+            res.send(JSON.stringify({
+                status: "successfully added gallery " + gallery + " to Paid Galleries"
+            }, null, 3));
+            return docs;
+>>>>>>> 8aab67c9db1826d01e67bd56e434bdab754b608b
         }).then((document) => {
             updatePreferences(username, 'gallery', document);
         });
@@ -139,12 +154,20 @@ function addObjectToPaid(req, res) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`);
+<<<<<<< HEAD
             else {
                 res.json({
                     paid: true
                 });
                 return docs;
             }
+=======
+            console.log(docs);
+            res.send(JSON.stringify({
+                status: "successfully added item to Paid Items "
+            }, null, 3));
+            return docs;
+>>>>>>> 8aab67c9db1826d01e67bd56e434bdab754b608b
         }).then((document) => {
             updatePreferences(username, 'item', document);
         });
