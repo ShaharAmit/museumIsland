@@ -24,7 +24,19 @@ var json3 = {
     "picture": "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/articles%2FCivil%20War%20Ballooning.jpg?alt=media&token=e531c529-8067-48b9-9857-b3233123ffbf"
 };
 
+var json4 = {
+    "status": "successefully added museum {:museum} to following"
+};
+var json5 = {
+    "status": "successefully removed museum {:museum} from  following"
+};
+
+
+
 
 document.getElementById("galleriesByArtist").innerHTML = JSON.stringify(json1, undefined, 2);
 document.getElementById("picturesByGallery").innerHTML = JSON.stringify(json2, undefined, 2);
 document.getElementById("getArticleById").innerHTML = JSON.stringify(json3, undefined, 2);
+document.getElementById("followResponse").innerHTML = JSON.stringify(json4, undefined, 2);
+document.getElementById("unFollowResponse").innerHTML = JSON.stringify(json5, undefined, 2);
+

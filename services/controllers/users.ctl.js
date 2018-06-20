@@ -10,7 +10,7 @@ function addMuseumToFollowing(res,userID,museum) {
             Users.update({user_id: userID},{$set: {following: newFollowing}},(err, docs) => {
                 if (err) console.log(`query error:${err}`);
                 console.log(docs);
-                res.json(docs);
+                res.send(JSON.stringify({ status: "successfully added museum " + museum + " to following" }, null, 3));
             });
         }).catch(err => console.log(err));
 }
@@ -26,7 +26,7 @@ function removeMuseumFromFollowing(res,userID,museum) {
         Users.update({user_id: userID},{$set: {following: newFollowing}},(err, docs) => {
             if (err) console.log(`query error:${err}`);
             console.log(docs);
-            res.json(docs);
+            res.send(JSON.stringify({ status: "successfully removed museum " + museum + " from following" }, null, 3));
         });
     }).catch(err => console.log(err));
 }
