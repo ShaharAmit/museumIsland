@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
 
 //post
 function addMuseumToFollowing(req, res) {
-    const params = params.body;
+    const params = req.body;
     username = params.username,
         museum = params.museum;
     Users.findOne({
