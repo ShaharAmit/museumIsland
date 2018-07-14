@@ -2,8 +2,7 @@ var consts = require('./consts'),
     mongoose = require('mongoose');
 mongoose.connect(consts.MLAB_KEY);
 //define the MODEL
-var Ideas = require('./models/galleries'),
-    options = {
+var options = {
         autoReconnect: true
     };
 mongoose.connect(consts.MLAB_KEY, options)
