@@ -335,5 +335,6 @@ module.exports = {
     updatePreferences,
     getPreferences,
     checkForDiscount,
-    getPaidGalleries
+    getPaidGalleries,
+    checkPaidGalleries
 };
