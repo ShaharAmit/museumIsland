@@ -181,7 +181,7 @@ function getPicturesByPreferences(req, res) {
                         pictures.push(obj[k][f]);
                     }
                 }
-                res.status(200).send({
+                res.status(200).json({
                     err: false,
                     docs: pictures
                 })
