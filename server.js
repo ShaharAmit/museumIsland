@@ -110,6 +110,12 @@ app.get('/pictures/:gallery',galleriesCtl.picturesByGallery);
 //artist
 app.get('/galleries_by_artist/:artist',galleriesCtl.galleriesByArtist);
 
+//check if gallery paid
+//@params:
+//username
+//gallery
+app.post('/check_paid_galleries',usersCtl.checkPaidGalleries);
+
 //API - index.html file
 app.get('/', (req, res) => {
     res.sendfile('index.html');

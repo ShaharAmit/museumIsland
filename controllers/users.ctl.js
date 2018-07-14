@@ -158,7 +158,33 @@ function addMuseumToDiscounts(req, res) {
     });
 }
 
-//not a route
+function checkPaidGalleries(req, res) {
+    const params = req.body,
+        username = params.username,
+        gallery = params.gallery;
+    Users.findOne({
+        username: username,
+        paid_galleries: gallery
+    }, 'paid_galleries -_id', (err, doc) => {
+        if (err) {
+            res.status(404).send({err: true});
+        } else {
+            if (doc && doc.paid_galleries) {
+                res.status(200).send({
+                    err: false,
+                    doc: true
+                })
+            } else {
+                res.status(200).send({
+                    err: false,
+                    doc: false
+                })
+            }
+        }
+    });
+}
+
+//post
 function addGalleryToPaid(username, gallery, genre) {
     Users.findOne({
         username: username
@@ -308,5 +334,6 @@ module.exports = {
     addObjectToPaid,
     updatePreferences,
     getPreferences,
-    checkForDiscount
+    checkForDiscount,
+    getPaidGalleries
 };
