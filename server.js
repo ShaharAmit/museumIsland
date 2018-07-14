@@ -13,13 +13,14 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.set('port', port);
 app.use('/', express.static('./public')); //for API
-app.use( (req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers",
-	"Origin, X-Requested-With, Content-Type, Accept");
-	res.set("Content-Type", "application/json");
-	next();
-});
+app.use(
+    (req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type,Accept");
+        res.set("Content-Type", "application/json");
+        next();
+    });
 
 //get artist by gallery
 //@params:
@@ -93,7 +94,7 @@ app.post('/create_gallery',galleriesCtl.createGallery);
 //get pictures by preferences
 //@params:
 //username
-app.post('/preferences/',galleriesCtl.getPicturesByPreferences);
+app.post('/preferences',galleriesCtl.getPicturesByPreferences);
 
 //get galleries by date
 //@params:
