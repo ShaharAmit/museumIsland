@@ -126,6 +126,11 @@ app.get('/get_all_gallery_pictures/:gallery',galleriesCtl.getAllPictures);
 //gallery
 app.get('/galleries_by_gallery/:gallery',museumsCtl.getGalleries); 
 
+//get galleries from muesum by gallery
+//@params:
+//gallery
+app.get('/get_gallery_pic/:gallery',galleriesCtl.getGalleryPicture); 
+
 //API - index.html file
 app.get('/', (req, res) => {
     res.sendfile('index.html');

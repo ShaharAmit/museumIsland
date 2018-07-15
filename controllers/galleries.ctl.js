@@ -317,6 +317,26 @@ function getAllPictures(req, res) {
     });
 }
 
+function getGalleryPicture(req,res) {
+    const params = req.params;
+    gallery = params.gallery;
+    Galleries.findOne({
+        gallery_name: gallery
+    }, "picture -_id", (err, docs) => {
+        if (err) {
+            console.log(`query error:${err}`)
+            res.status(404).send({
+                err: true
+            })
+        } else {
+            res.status(200).send({
+                err: false,
+                docs: docs
+            })
+        }
+    })
+}
+
 module.exports = {
     galleriesByArtist,
     galleriesByDate,
@@ -324,5 +344,6 @@ module.exports = {
     createGallery,
     getPicturesByPreferences,
     addGalleryToPaid,
-    getAllPictures
+    getAllPictures,
+    getGalleryPicture
 };
