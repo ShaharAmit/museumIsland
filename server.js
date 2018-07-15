@@ -136,6 +136,10 @@ app.get('/get_gallery_pic/:gallery',galleriesCtl.getGalleryPicture);
 //gallery
 app.get('/get_items/:gallery',museumsCtl.getItems); 
 
+//get items from muesum by gallery
+//@params:
+//username
+app.post('/check_user_exist',usersCtl.checkUserExist);
 
 //API - index.html file
 app.get('/', (req, res) => {

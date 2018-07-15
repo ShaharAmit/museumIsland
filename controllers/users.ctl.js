@@ -319,6 +319,18 @@ function updatePreferences(username, event, doc) {
     }).catch(err => console.log(err));
 }
 
+function checkUserExist(req,res) {
+    const username = req.body.username;
+    Users.findOne({username: username},"username -id",(err, docs) => {
+        if (err) {
+            console.log(`query error:${err}`)
+            res.status(404).send({err: true})
+        } else {
+            res.status(200).send({err: false, docs: docs})
+        }
+    });
+}
+
 //not by route
 function getPreferences(userName) {
     return Users.findOne({
@@ -335,5 +347,6 @@ module.exports = {
     updatePreferences,
     getPreferences,
     checkForDiscount,
-    checkPaidGalleries
+    checkPaidGalleries,
+    checkUserExist
 };
