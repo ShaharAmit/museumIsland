@@ -301,7 +301,7 @@ function getAllPictures(req, res) {
             if(docs && docs.pictures) {
                 res.status(200).send({
                     err: false,
-                    docs: doc
+                    docs: docs
                 });
             } else {
                 res.status(200).send({
