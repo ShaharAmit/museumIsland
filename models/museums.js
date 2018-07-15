@@ -7,7 +7,8 @@ const mongoose = require('mongoose'),
             name: String,
             genre: String,
             price: String,
-            description: String
+            description: String,
+            picture: String
         }],
         picture: {type: String, required: true}
     }, {

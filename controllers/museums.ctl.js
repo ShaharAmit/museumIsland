@@ -95,10 +95,22 @@ function getGalleries(req,res) {
     });
 }
 
+function getItems(req,res) {
+    const gallery = req.params.gallery;
+    Museums.findOne({galleries: gallery},"-_id",(err, docs) => {
+        if (err) {
+            console.log(`query error:${err}`)
+            res.status(404).send({err: true})
+        } else {
+            res.status(200).send({err: false, docs: docs})
+        }
+    });
+}
 
 module.exports = {
     museumsByGallery,
     insertGallery,
     addObjectToPaid,
-    getGalleries
+    getGalleries,
+    getItems
 };
