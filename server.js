@@ -119,7 +119,7 @@ app.post('/check_paid_galleries',usersCtl.checkPaidGalleries);
 //get gallery pictures
 //@params:
 //gallery
-app.post('/get_all_gallery_pictures',galleriesCtl.getAllPictures);
+app.get('/get_all_gallery_pictures',galleriesCtl.getAllPictures);
 
 //API - index.html file
 app.get('/', (req, res) => {
