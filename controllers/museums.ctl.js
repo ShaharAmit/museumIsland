@@ -97,7 +97,7 @@ function getGalleries(req,res) {
 
 function getItems(req,res) {
     const gallery = req.params.gallery;
-    Museums.findOne({galleries: gallery},"-_id",(err, docs) => {
+    Museums.findOne({galleries: gallery},"items_for_sale -_id",(err, docs) => {
         if (err) {
             console.log(`query error:${err}`)
             res.status(404).send({err: true})
