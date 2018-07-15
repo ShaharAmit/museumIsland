@@ -321,9 +321,9 @@ function updatePreferences(username, event, doc) {
 
 function checkUserExist(req,res) {
     const username = req.body.username;
-    Users.findOne({username: username},"username -id",(err, docs) => {
+    Users.findOne({username: username},"username -_id",(err, docs) => {
         if (err) {
-            console.log(`query error:${err}`)
+            console.log(`query error:${err}`);
             res.status(404).send({err: true})
         } else {
             res.status(200).send({err: false, docs: docs})
