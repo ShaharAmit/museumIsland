@@ -85,7 +85,7 @@ function addObjectToPaid(req, res) {
 
 function getGalleries(req,res) {
     const gallery = req.params.gallery;
-    Museums.find({galleries: gallery},"galleries -_id",(err, docs) => {
+    Museums.findOne({galleries: gallery},"galleries -_id",(err, docs) => {
         if (err) {
             console.log(`query error:${err}`)
             res.status(404).send({err: true})
