@@ -121,6 +121,11 @@ app.post('/check_paid_galleries',usersCtl.checkPaidGalleries);
 //gallery
 app.get('/get_all_gallery_pictures/:gallery',galleriesCtl.getAllPictures); 
 
+//get galleries from muesum by gallery
+//@params:
+//gallery
+app.get('/get_all_gallery_pictures/:gallery',museumsCtl.getGalleries); 
+
 //API - index.html file
 app.get('/', (req, res) => {
     res.sendfile('index.html');
