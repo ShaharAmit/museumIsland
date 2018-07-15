@@ -286,11 +286,43 @@ function addGalleryToPaid(req,res) {
     });
 }
 
+function getAllPictures(req, res) {
+    const params = req.body;
+    gallery = params.gallery;
+
+    Galleries.findOne({
+        gallery_name: gallery
+    }, "pictures -_id", (err, docs) => {
+        if(err) {
+            res.status(404).send({
+                err: true
+            });
+        } else {
+            if(docs && docs.pictures) {
+                res.status(200).send({
+                    err: false,
+                    docs: doc
+                });
+            } else {
+                res.status(200).send({
+                    err: true
+                });
+            }
+        }
+    }).catch(err => {
+        console.log(`query error:${err}`)
+        res.status(404).send({
+            err: true
+        });
+    });
+}
+
 module.exports = {
     galleriesByArtist,
     galleriesByDate,
     picturesByGallery,
     createGallery,
     getPicturesByPreferences,
-    addGalleryToPaid
+    addGalleryToPaid,
+    getAllPictures
 };
