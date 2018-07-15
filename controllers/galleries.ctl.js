@@ -287,7 +287,7 @@ function addGalleryToPaid(req,res) {
 }
 
 function getAllPictures(req, res) {
-    const params = req.body;
+    const params = req.params;
     gallery = params.gallery;
 
     Galleries.findOne({

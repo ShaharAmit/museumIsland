@@ -99,12 +99,12 @@ function checkForDiscount(req, res) {
             if (doc && doc.discounts_museums) {
                 res.status(200).send({
                     err: false,
-                    doc: true
+                    docs: true
                 })
             } else {
                 res.status(200).send({
                     err: false,
-                    doc: false
+                    docs: false
                 })
             }
         }
@@ -172,12 +172,12 @@ function checkPaidGalleries(req, res) {
             if (doc && doc.paid_galleries) {
                 res.status(200).send({
                     err: false,
-                    doc: true
+                    docs: true
                 })
             } else {
                 res.status(200).send({
                     err: false,
-                    doc: false
+                    docs: false
                 })
             }
         }
