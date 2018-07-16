@@ -141,6 +141,12 @@ app.get('/get_items/:gallery',museumsCtl.getItems);
 //username
 app.post('/check_user_exist',usersCtl.checkUserExist);
 
+//get items from muesum by gallery
+//@params:
+//gallery
+app.get('/get_gallery_details',galleriesCtl.getGalleryDet);
+
+
 //API - index.html file
 app.get('/', (req, res) => {
     res.sendfile('index.html');

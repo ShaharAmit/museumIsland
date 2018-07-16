@@ -337,6 +337,26 @@ function getGalleryPicture(req,res) {
     })
 }
 
+function getGalleryDet(req,res) {
+    const params = req.params;
+    gallery = params.gallery;
+    Galleries.findOne({
+        gallery_name: gallery
+    }, "price genre -_id", (err, docs) => {
+        if (err) {
+            console.log(`query error:${err}`)
+            res.status(404).send({
+                err: true
+            })
+        } else {
+            res.status(200).send({
+                err: false,
+                docs: docs
+            })
+        }
+    })
+}
+
 module.exports = {
     galleriesByArtist,
     galleriesByDate,
@@ -345,5 +365,6 @@ module.exports = {
     getPicturesByPreferences,
     addGalleryToPaid,
     getAllPictures,
-    getGalleryPicture
+    getGalleryPicture,
+    getGalleryDet
 };
