@@ -215,14 +215,20 @@ function addGalleryToPaid(req,res) {
                 return docs;
             }).then((docs) => {
                 if (docs) {
-                    promises.push(updatePreferences(username, 'gallery', genre)).then(check => {
-                        console.log('check',check);
-                        res.status(200).send({
-                            err: false,
-                            docs: true
-                        })
+                    promises.push(updatePreferences(username, 'gallery', {genre: genre}));
+                    Promise.all(promises).then(check => {
+                        if(check[0]) {
+                            res.status(200).send({
+                                err: false,
+                                docs: true
+                            })
+                        } else {
+                            res.status(200).send({
+                                err: false,
+                                docs: false
+                            })
+                        }
                     });
-                    return true;
                 }
             }).catch(err => {
                 console.log(err);
@@ -282,7 +288,8 @@ function addObjectToPaid(username, item, genre) {
 
 //not by route
 function updatePreferences(username, event, doc) {
-    const genre = doc.genre;
+    const genre = doc.genre,
+    promises = [];
     console.log('genre',genre);
 
     return Users.findOne({
@@ -317,7 +324,7 @@ function updatePreferences(username, event, doc) {
                 }
                 break;
         }
-        Users.update({
+        promises.push(Users.update({
             username: username
         }, {
             $set: {
@@ -326,7 +333,9 @@ function updatePreferences(username, event, doc) {
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`)
             else {console.log('success'); return true}
-        });
+        }));
+        const check = Promise.all(promises).then(() => {return true});
+        return check;
     }).catch(err => console.log(err));
 }
 
