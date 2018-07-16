@@ -185,7 +185,12 @@ function checkPaidGalleries(req, res) {
 }
 
 //post
-function addGalleryToPaid(username, gallery, genre) {
+function addGalleryToPaid(req,res) {
+    const params = req.body;
+    username = params.username,
+    gallery = params.gallery,
+    genre = params.genre,
+    promises = [];
     Users.findOne({
         username: username
     }, 'paid_galleries -_id').then((doc) => {
@@ -210,7 +215,13 @@ function addGalleryToPaid(username, gallery, genre) {
                 return docs;
             }).then((docs) => {
                 if (docs) {
-                    updatePreferences(username, 'gallery', genre);
+                    promises.push(updatePreferences(username, 'gallery', genre)).then(check => {
+                        console.log('check',check);
+                        res.status(200).send({
+                            err: false,
+                            docs: true
+                        })
+                    });
                     return true;
                 }
             }).catch(err => {
@@ -274,7 +285,7 @@ function updatePreferences(username, event, doc) {
     const genre = doc.genre;
     console.log('genre',genre);
 
-    Users.findOne({
+    return Users.findOne({
         username: username
     }, 'preferences -_id').then((doc) => {
         return doc.preferences;
@@ -314,7 +325,7 @@ function updatePreferences(username, event, doc) {
             }
         }, (err, docs) => {
             if (err) console.log(`query error:${err}`)
-            else console.log('success');
+            else {console.log('success'); return true}
         });
     }).catch(err => console.log(err));
 }

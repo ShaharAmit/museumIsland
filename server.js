@@ -64,7 +64,7 @@ app.post('/add_dicounted_museum',usersCtl.addMuseumToDiscounts);
 //@params:
 //username
 //gallery
-app.post('/add_paid_gallery',galleriesCtl.addGalleryToPaid);
+app.post('/add_paid_gallery',usersCtl.addGalleryToPaid);
 
 //check for discount
 //@params:
