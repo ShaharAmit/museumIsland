@@ -254,13 +254,11 @@ function addGalleryToPaid(req,res) {
 
 //post
 function addObjectToPaid(req,res) {
-    console.log('??')
     const params = req.body;
     username = params.username,
     item = params.item,
     genre = params.genre,
     promises = [];
-    console.log('1',username,item,genre);
     Users.findOne({
         username: username
     }, 'purchases -_id').then((doc) => {
@@ -394,6 +392,20 @@ function getPreferences(userName) {
     }, "preferences -_id");
 }
 
+function getUserData(req, res) {
+    const params = req.body;
+    username = params.username;
+    Users.findOne({
+        username: username
+    },(err, docs) => {
+        if(err) {
+            res.status(404).send({err: true})
+        } else {
+            res.status(200).send({err: false, docs: docs})
+        }
+    });
+}
+
 module.exports = {
     addMuseumToDiscounts,
     removeMuseumFromFollowing,
@@ -404,5 +416,6 @@ module.exports = {
     getPreferences,
     checkForDiscount,
     checkPaidGalleries,
-    checkUserExist
+    checkUserExist,
+    getUserData
 };

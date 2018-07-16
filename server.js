@@ -64,6 +64,7 @@ app.post('/add_dicounted_museum',usersCtl.addMuseumToDiscounts);
 //@params:
 //username
 //gallery
+//genre
 app.post('/add_paid_gallery',usersCtl.addGalleryToPaid);
 
 //check for discount
@@ -76,7 +77,7 @@ app.post('/check_for_discount',usersCtl.checkForDiscount);
 //@params:
 //username
 //item,
-//museum
+//genre
 app.post('/add_paid_object',usersCtl.addObjectToPaid);
 
 //create gallery
@@ -146,6 +147,10 @@ app.post('/check_user_exist',usersCtl.checkUserExist);
 //gallery
 app.get('/get_gallery_details/:gallery',galleriesCtl.getGalleryDet);
 
+//get items from muesum by gallery
+//@params:
+//username
+app.post('/get_user_data',usersCtl.getUserData);
 
 //API - index.html file
 app.get('/', (req, res) => {
