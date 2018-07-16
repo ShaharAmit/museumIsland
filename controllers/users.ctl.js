@@ -232,20 +232,35 @@ function addGalleryToPaid(req,res) {
                 }
             }).catch(err => {
                 console.log(err);
-                return false;
+                res.status(404).send({
+                    err: false,
+                    docs: false
+                })
             });
         } else {
-            return false;
+            res.status(404).send({
+                err: false,
+                docs: false
+            })
         }
     }).catch(err => {
         console.log(err);
-        return false
+        res.status(404).send({
+            err: false,
+            docs: false
+        })
     });
 }
 
 //post
-function addObjectToPaid(username, item, genre) {
-    console.log('genre',genre);
+function addObjectToPaid(req,res) {
+    console.log('??')
+    const params = req.body;
+    username = params.username,
+    item = params.item,
+    genre = params.genre,
+    promises = [];
+    console.log('1',username,item,genre);
     Users.findOne({
         username: username
     }, 'purchases -_id').then((doc) => {
@@ -270,19 +285,40 @@ function addObjectToPaid(username, item, genre) {
                 return docs;
             }).then((docs) => {
                 if (docs) {
-                    updatePreferences(username, 'item', genre);
-                    return true;
+                    promises.push(updatePreferences(username, 'item', {genre: genre}));
+                    Promise.all(promises).then(check => {
+                        if(check[0]) {
+                            res.status(200).send({
+                                err: false,
+                                docs: true
+                            })
+                        } else {
+                            res.status(200).send({
+                                err: false,
+                                docs: false
+                            })
+                        }
+                    });
                 }
             }).catch(err => {
                 console.log(err);
-                return false;
+                res.status(404).send({
+                    err: false,
+                    docs: false
+                })
             });
         } else {
-            return false;
+            res.status(404).send({
+                err: false,
+                docs: false
+            })
         }
     }).catch(err => {
         console.log(err);
-        return false
+        res.status(404).send({
+            err: false,
+            docs: false
+        })
     });
 }
 

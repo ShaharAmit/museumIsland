@@ -244,48 +244,6 @@ function getPicturesByPreferences(req, res) {
     })
 }
 
-function addGalleryToPaid(req,res) {
-    const params = req.body;
-        username = params.username,
-        gallery = params.gallery,
-        promises = [];
-
-    Galleries.findOne({
-        gallery_name: gallery
-    }, "genre -_id").then(doc => {
-        if(doc) {
-            promises.push(Users.addGalleryToPaid(username,gallery,doc));
-
-            Promise.all(promises).then((check) => {
-                if(check) {
-                    res.status(200).send({
-                        err: false,
-                        docs: true
-                    })
-                } else {
-                    res.status(404).send({
-                        err: true
-                    })
-                }
-            }).catch(err => {
-                console.log(`query error:${err}`)
-                res.status(404).send({
-                    err: true
-                });
-            });
-        } else {
-            res.status(404).send({
-                err: true
-            });
-        }
-    }).catch(err => {
-        console.log(`query error:${err}`)
-        res.status(404).send({
-            err: true
-        });
-    });
-}
-
 function getAllPictures(req, res) {
     const params = req.params;
     gallery = params.gallery;
@@ -363,7 +321,6 @@ module.exports = {
     picturesByGallery,
     createGallery,
     getPicturesByPreferences,
-    addGalleryToPaid,
     getAllPictures,
     getGalleryPicture,
     getGalleryDet
