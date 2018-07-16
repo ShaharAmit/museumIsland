@@ -1,68 +1,73 @@
 var json1 = {
-    "err": false,
-    "docs": [
+    err: false,
+    docs: [
         {
-            "museums": [
+            museums: [
                 "Louvre"
             ],
-            "galleries": [
+            galleries: [
                 "Power Plays"
             ],
-            "name": "Christophe Fouin",
-            "about": [
+            name: "Christophe Fouin",
+            about: [
                 "hey, im an artist"
             ],
-            "picture": "me.png"
+            picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/artists%2Fprofile.png?alt=media&token=e088da9f-e43d-408f-af52-09c6861dd04c"
         }
     ]
 };
 
 var json2 = {
-    "err": false,
-    "docs": [
+    err: false,
+    docs: [
         {
-            "museum_name": "Louvre",
-            "galleries": [
+            museum_name: "Louvre",
+            galleries: [
                 "Power Plays",
                 "Delacroix",
                 "In Society"
             ],
-            "articles": [
+            articles: [
                 "Museums and politics: the Louvre, Paris"
             ],
-            "items_for_sale": [
+            items_for_sale: [
                 {
-                    "name": "item1",
-                    "genre": "War",
-                    "price": "20",
-                    "description": "im an item"
+                    name: "item1",
+                    genre: "War",
+                    price: "20",
+                    description: "im an item",
+                    picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/items%2Fshopping-bag.png?alt=media&token=19a7955c-51ce-4309-92d1-8070a57192f4"
                 },
                 {
-                    "name": "item2",
-                    "genre": "History",
-                    "price": "20",
-                    "description": "im an item"
+                    name: "item2",
+                    genre: "History",
+                    price: "20",
+                    description: "im an item",
+                    picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/items%2Fshopping-bag.png?alt=media&token=19a7955c-51ce-4309-92d1-8070a57192f4"
                 },
                 {
-                    "name": "item3",
-                    "genre": "History",
-                    "price": "20",
-                    "description": "im an item"
+                    name: "item3",
+                    genre: "History",
+                    price: "20",
+                    description: "im an item",
+                    picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/items%2Fshopping-bag.png?alt=media&token=19a7955c-51ce-4309-92d1-8070a57192f4"
                 },
                 {
-                    "name": "item4",
-                    "genre": "History",
-                    "price": "20",
-                    "description": "im an item"
+                    name: "item4",
+                    genre: "History",
+                    price: "20",
+                    description: "im an item",
+                    picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/items%2Fshopping-bag.png?alt=media&token=19a7955c-51ce-4309-92d1-8070a57192f4"
                 },
                 {
-                    "name": "item5",
-                    "genre": "Tradition",
-                    "price": "20",
-                    "description": "im an item"
+                    name: "item5",
+                    genre: "Tradition",
+                    price: "20",
+                    description: "im an item",
+                    picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/items%2Fshopping-bag.png?alt=media&token=19a7955c-51ce-4309-92d1-8070a57192f4"
                 }
             ],
-            "picture": "museum.png"
+            picture: "museum.png"
         }
     ]
 };
@@ -138,28 +143,28 @@ var json6 = {
     ]
 };
 var json7 = {
-    "err": false,
-    "docs": [
+    err: false,
+    docs: [
         {
-            "gallery_name": "newgallery",
-            "picture": "picture"
+            gallery_name: "Power Plays",
+            picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/exhibitions%2Fpower-plays%2F361401-369x500.jpg?alt=media&token=6000cacd-ce0c-4c9e-a842-2c27b8ff7df1"
         },
         {
-            "gallery_name": "Power Plays",
-            "picture": "gallery.png"
+            gallery_name: "Destination Moon",
+            picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/exhibitions%2Fapollo%2F11924h.jpg?alt=media&token=5485e7d3-f3d1-497a-b0ad-13d0f6e87ce3"
         },
         {
-            "gallery_name": "Destination Moon",
-            "picture": "gallery.png"
+            gallery_name: "Delacroix",
+            picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/exhibitions%2FDelacroix%2F915525-323x500.jpg?alt=media&token=baecc3ad-21ed-4f19-a2d4-ba0c500e11c6"
         }
     ]
 };
 var json8 = {
-    "err": false,
-    "docs": [
+    err: false,
+    docs: [
         {
-            "gallery_name": "Power Plays",
-            "picture": "gallery.png"
+            gallery_name: "Power Plays",
+            picture: "https://firebasestorage.googleapis.com/v0/b/museum-island.appspot.com/o/exhibitions%2Fpower-plays%2F361401-369x500.jpg?alt=media&token=6000cacd-ce0c-4c9e-a842-2c27b8ff7df1"
         }
     ]
 };
