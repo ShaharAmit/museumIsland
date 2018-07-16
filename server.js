@@ -144,7 +144,7 @@ app.post('/check_user_exist',usersCtl.checkUserExist);
 //get items from muesum by gallery
 //@params:
 //gallery
-app.get('/get_gallery_details',galleriesCtl.getGalleryDet);
+app.get('/get_gallery_details/:gallery',galleriesCtl.getGalleryDet);
 
 
 //API - index.html file
